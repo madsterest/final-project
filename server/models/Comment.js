@@ -1,8 +1,5 @@
 const { Schema, model } = require("mongoose");
 
-const userSchema = require("./User");
-const recipeSchema = require("./Recipe");
-
 const commentSchema = new Schema({
   comment: {
     type: String,

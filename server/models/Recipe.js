@@ -1,6 +1,4 @@
 const { Schema, model } = require("mongoose");
-const userSchema = require("./User");
-const commentSchema = require("./Comment");
 
 const recipeSchema = new Schema({
   name: {
