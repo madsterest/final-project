@@ -1,10 +1,11 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Image } from "@chakra-ui/react";
+import logoFile from "../utils/logo-alt.png";
 
 export default function Logo() {
   return (
-    <Box fontSize="30" color="grey" fontFamily="Arial">
-      Proof In The Pudding
+    <Box boxSize="130px" objectFit="cover" ml="5">
+      <Image src={logoFile} />
     </Box>
   );
 }

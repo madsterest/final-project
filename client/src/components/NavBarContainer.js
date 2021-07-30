@@ -4,12 +4,14 @@ import { Flex } from "@chakra-ui/react";
 export default function NavBarContainer({ children }) {
   return (
     <Flex
-      bg="#dcd0ff"
       align="center"
       justify="space-between"
       w="100%"
-      p="10"
+      pl="8"
+      pr="8"
       mb="2"
+      borderBottom="1px"
+      borderBottomColor="#fc5185"
     >
       {children}
     </Flex>
