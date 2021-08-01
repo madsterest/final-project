@@ -15,6 +15,7 @@ export default function MenuItem({ children }) {
         borderColor: "#fc5185",
         textDecoration: "none",
       }}
+      href="#"
     >
       <Text display="block">{children}</Text>
     </Link>

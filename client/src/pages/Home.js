@@ -1,45 +1,68 @@
-// import { Link } from 'react-router-dom';
-// import { useQuery } from '@apollo/client';
-// import { QUERY_MATCHUPS } from '../utils/queries';
+import React from "react";
 
-// const Home = () => {
-//   const { loading, data } = useQuery(QUERY_MATCHUPS, {
-//     fetchPolicy: "no-cache"
-//   });
+import { HStack, Flex, Spacer } from "@chakra-ui/react";
+import Card from "../components/Card";
 
-//   const matchupList = data?.matchups || [];
-
-//   return (
-//     <div className="card bg-white card-rounded w-50">
-//       <div className="card-header bg-dark text-center">
-//         <h1>Welcome to Tech Matchup!</h1>
-//       </div>
-//       <div className="card-body m-5">
-//         <h2>Here is a list of matchups you can vote on:</h2>
-//         {loading ? (
-//           <div>Loading...</div>
-//         ) : (
-//           <ul className="square">
-//             {matchupList.map((matchup) => {
-//               return (
-//                 <li key={matchup._id}>
-//                   <Link to={{ pathname: `/matchup/${matchup._id}` }}>
-//                     {matchup.tech1} vs. {matchup.tech2}
-//                   </Link>
-//                 </li>
-//               );
-//             })}
-//           </ul>
-//         )}
-//       </div>
-//       <div className="card-footer text-center m-3">
-//         <h2>Ready to create a new matchup?</h2>
-//         <Link to="/matchup">
-//           <button className="btn btn-lg btn-danger">Create Matchup!</button>
-//         </Link>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Home;
+export default function Home() {
+  const recipes = [
+    {
+      name: "Chicken Puffs",
+      prepTime: "20",
+      cookTime: "30",
+      ingredients: ["Chicken", "Puff Pastry", "White Sauce"],
+      instructions: [
+        "Make white sauce",
+        "cook chicken",
+        "Wrap in pastry",
+        "bake",
+      ],
+      description:
+        "Delicious chicken pastry in a whote cream sauce. Perfect for a cold night in",
+      rating: "5",
+      user: "6102893526de5735bb0cca6c",
+    },
+    {
+      name: "Beef Tacos",
+      prepTime: "30",
+      cookTime: "60",
+      ingredients: ["Beef", "Tacos", "Tomato", "Beans", "Onion"],
+      instructions: [
+        "Cook Beef",
+        "Mix all ingredients together",
+        "Warm up Taco",
+        "Put ingredients in Taco",
+      ],
+      description: "Healthy Beef Tacos with Tomato Salsa",
+      rating: "4",
+      user: "6102893526de5735bb0cca6c",
+    },
+    {
+      name: "Salad",
+      prepTime: "10",
+      cookTime: "10",
+      ingredients: ["Lettuce", "Spinach", "Tomato", "Cucumber", "Onion"],
+      instructions: ["Mix all ingredients together"],
+      description: "Simple and healthy salad recipe",
+      rating: "2",
+      user: "6102893526de5735bb0cca6c",
+    },
+  ];
+  return (
+    <Flex p="10">
+      {recipes?.map((recipe, index) => {
+        return (
+          <>
+            <Card
+              title={recipe.name}
+              prep={recipe.prepTime}
+              cook={recipe.cookTime}
+              description={recipe.description}
+              rating={recipe.rating}
+            />
+            {index < recipes.length - 1 && <Spacer />}
+          </>
+        );
+      })}
+    </Flex>
+  );
+}

@@ -5,9 +5,11 @@ import MenuLinks from "./MenuLinks";
 
 export default function Navbar() {
   return (
-    <NavBarContainer>
-      <Logo />
-      <MenuLinks />
-    </NavBarContainer>
+    <>
+      <NavBarContainer>
+        <Logo />
+        <MenuLinks />
+      </NavBarContainer>
+    </>
   );
 }
