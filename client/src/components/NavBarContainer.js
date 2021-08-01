@@ -9,8 +9,8 @@ export default function NavBarContainer({ children }) {
       w="100%"
       pl="8"
       pr="8"
-      mb="2"
-      borderBottom="1px"
+      mb="10"
+      borderBottom="2px"
       borderBottomColor="#fc5185"
     >
       {children}

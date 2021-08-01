@@ -1,7 +1,11 @@
 import React from "react";
 
-import { HStack, Flex, Spacer } from "@chakra-ui/react";
+import { Wrap } from "@chakra-ui/react";
 import Card from "../components/Card";
+
+import chicken from "../utils/Chicken-Puffs.jpeg";
+import salad from "../utils/salad.jpeg";
+import taco from "../utils/tacos.jpeg";
 
 export default function Home() {
   const recipes = [
@@ -16,6 +20,7 @@ export default function Home() {
         "Wrap in pastry",
         "bake",
       ],
+      img: chicken,
       description:
         "Delicious chicken pastry in a whote cream sauce. Perfect for a cold night in",
       rating: "5",
@@ -32,6 +37,7 @@ export default function Home() {
         "Warm up Taco",
         "Put ingredients in Taco",
       ],
+      img: taco,
       description: "Healthy Beef Tacos with Tomato Salsa",
       rating: "4",
       user: "6102893526de5735bb0cca6c",
@@ -42,27 +48,28 @@ export default function Home() {
       cookTime: "10",
       ingredients: ["Lettuce", "Spinach", "Tomato", "Cucumber", "Onion"],
       instructions: ["Mix all ingredients together"],
+      img: salad,
       description: "Simple and healthy salad recipe",
       rating: "2",
       user: "6102893526de5735bb0cca6c",
     },
   ];
   return (
-    <Flex p="10">
-      {recipes?.map((recipe, index) => {
+    <Wrap spacing="30px" justify="center">
+      {recipes?.map((recipe) => {
         return (
           <>
             <Card
               title={recipe.name}
               prep={recipe.prepTime}
               cook={recipe.cookTime}
+              img={recipe.img}
               description={recipe.description}
               rating={recipe.rating}
             />
-            {index < recipes.length - 1 && <Spacer />}
           </>
         );
       })}
-    </Flex>
+    </Wrap>
   );
 }
