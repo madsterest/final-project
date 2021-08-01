@@ -1,5 +1,5 @@
 import React from "react";
-// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -11,10 +11,12 @@ import Home from "./pages/Home";
 
 function App() {
   return (
-    <>
+    <Router>
       <Navbar />
-      <Home />
-    </>
+      <Switch>
+        <Route exact path="/" component={Home} />
+      </Switch>
+    </Router>
   );
 }
 
