@@ -13,3 +13,13 @@ export const getUserRecipes = () => {
     },
   });
 };
+
+export const newUser = (newUser) => {
+  return fetch("/api/user/new", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newUser),
+  });
+};

@@ -1,4 +1,5 @@
 const { Recipe, User } = require("../models");
+const { signToken } = require("../utils/auth");
 
 module.exports = {
   async getRecipes(req, res) {
@@ -22,5 +23,15 @@ module.exports = {
       console.log(err);
       return res.status(400).json(err);
     }
+  },
+  async createUser(req, res) {
+    const user = await User.create(req.body);
+
+    if (!user) {
+      return res.stats(400).json({ message: "Unable to create user" });
+    }
+
+    const token = signToken(user);
+    res.json({ token, user });
   },
 };

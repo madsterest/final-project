@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Stack, Center, Button, Input, FormControl } from "@chakra-ui/react";
+import { Stack, Center, Button, Input } from "@chakra-ui/react";
+import { newUser } from "../utils/API";
 // import FormInput from "../components/FormInput";
 // import { FontAwesome } from "@fortawesome/react-fontawesome";
 
@@ -18,9 +19,21 @@ export default function SignUp() {
     setUserData({ ...userData, [name]: value });
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
+    try {
+      const response = await newUser(userData);
+
+      if (!response.ok) {
+        throw new Error("No new user added");
+      }
+
+      const { token, user } = await response.json();
+      console.log(user);
+    } catch (err) {
+      console.error(err);
+    }
     console.log(userData);
     setUserData({
       name: "",
@@ -35,15 +48,13 @@ export default function SignUp() {
         Join the Family!
       </Center>
       {/* <Header>Join the Family</Header> */}
-      <Stack>
-        <FormControl isRequired>
-          <Input
-            name="name"
-            value={userData.name}
-            onChange={handleInputChange}
-            placeholder="Full Name"
-          />
-        </FormControl>
+      <Stack w="500px" align="center" mx="auto">
+        <Input
+          name="name"
+          value={userData.name}
+          onChange={handleInputChange}
+          placeholder="Full Name"
+        />
         <Input
           name="email"
           value={userData.email}
