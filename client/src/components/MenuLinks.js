@@ -5,10 +5,10 @@ import MenuItem from "./MenuItem.js";
 export default function MenuLink() {
   return (
     <HStack>
-      <MenuItem>Home</MenuItem>
-      <MenuItem>Dashboard</MenuItem>
+      <MenuItem href="/">Home</MenuItem>
+      <MenuItem href="/dashboard">Your Recipes</MenuItem>
       <MenuItem>Favourites</MenuItem>
-      <MenuItem>Logout</MenuItem>
+      <MenuItem>Sign Up</MenuItem>
     </HStack>
   );
 }

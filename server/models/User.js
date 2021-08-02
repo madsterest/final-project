@@ -23,6 +23,12 @@ const userSchema = new Schema({
       ref: "Recipe",
     },
   ],
+  favorites: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Recipe",
+    },
+  ],
 });
 
 const User = model("User", userSchema);

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
 
 // const client = new ApolloClient({
 //   uri: '/graphql',
@@ -15,6 +16,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/dashboard" component={Dashboard} />
       </Switch>
     </Router>
   );

@@ -2,7 +2,7 @@ import React from "react";
 
 import { Link, Text } from "@chakra-ui/react";
 
-export default function MenuItem({ children }) {
+export default function MenuItem({ href, children }) {
   return (
     <Link
       py="2"
@@ -15,7 +15,7 @@ export default function MenuItem({ children }) {
         borderColor: "#fc5185",
         textDecoration: "none",
       }}
-      href="#"
+      to={href}
     >
       <Text display="block">{children}</Text>
     </Link>
