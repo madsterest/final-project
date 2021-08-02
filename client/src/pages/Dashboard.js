@@ -1,5 +1,5 @@
 import React from "react";
-import { HStack } from "@chakra-ui/react";
+import { Wrap } from "@chakra-ui/react";
 import Card from "../components/Card";
 
 export default function Dashboard() {
@@ -50,7 +50,7 @@ export default function Dashboard() {
     },
   ];
   return (
-    <HStack>
+    <Wrap spacing="30px" justify="center">
       {recipes?.map((recipe) => {
         return (
           <Card
@@ -64,6 +64,6 @@ export default function Dashboard() {
           ></Card>
         );
       })}
-    </HStack>
+    </Wrap>
   );
 }

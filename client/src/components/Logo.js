@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Image } from "@chakra-ui/react";
-import logoFile from "../utils/logo-alt.png";
+import logoFile from "../logo-alt.png";
 
 export default function Logo() {
   return (

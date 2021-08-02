@@ -5,3 +5,11 @@ export const getRecipes = () => {
     },
   });
 };
+
+export const getUserRecipes = () => {
+  return fetch("/api/user", {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};

@@ -13,13 +13,6 @@ db.once("open", async () => {
     const recipeId = recipes.map((recipe) => {
       return recipe._id;
     });
-
-    const updateRecipes = await User.findOneAndUpdate(
-      {
-        username: "maddieiscool",
-      },
-      { $push: { recipes: recipeId } }
-    );
   } catch (err) {
     console.log(err);
   }

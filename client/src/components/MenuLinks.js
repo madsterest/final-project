@@ -7,8 +7,8 @@ export default function MenuLink() {
     <HStack>
       <MenuItem href="/">Home</MenuItem>
       <MenuItem href="/dashboard">Your Recipes</MenuItem>
-      <MenuItem>Favourites</MenuItem>
-      <MenuItem>Sign Up</MenuItem>
+      <MenuItem href="favs">Favourites</MenuItem>
+      <MenuItem href="/signup">Sign Up</MenuItem>
     </HStack>
   );
 }

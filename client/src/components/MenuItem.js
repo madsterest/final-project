@@ -2,6 +2,8 @@ import React from "react";
 
 import { Link, Text } from "@chakra-ui/react";
 
+import { Link as ReachLink } from "react-router-dom";
+
 export default function MenuItem({ href, children }) {
   return (
     <Link
@@ -15,6 +17,7 @@ export default function MenuItem({ href, children }) {
         borderColor: "#fc5185",
         textDecoration: "none",
       }}
+      as={ReachLink}
       to={href}
     >
       <Text display="block">{children}</Text>

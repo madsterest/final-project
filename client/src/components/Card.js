@@ -11,7 +11,7 @@ export default function Card(props) {
       border="1px"
       borderRadius="30"
       borderColor="#364f6b"
-      bg="#ff9a00"
+      bg="#fce38a"
       _hover={{
         borderColor: "#fc5185",
         textDecoration: "none",
@@ -24,7 +24,7 @@ export default function Card(props) {
           objectFit="cover"
           boxSize="200px"
         />
-        <Text fontSize="20px" fontWeight="bold" color="#f6f7d7">
+        <Text fontSize="20px" fontWeight="bold" color="#364f6b">
           <LinkOverlay
             _hover={{
               color: "#fc5185",
