@@ -5,6 +5,7 @@ import { newUser } from "../utils/API";
 // import { FontAwesome } from "@fortawesome/react-fontawesome";
 
 // import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+import Auth from "../utils/auth";
 
 export default function SignUp() {
   const [userData, setUserData] = useState({
@@ -31,6 +32,7 @@ export default function SignUp() {
 
       const { token, user } = await response.json();
       console.log(user);
+      Auth.login(token);
     } catch (err) {
       console.error(err);
     }
@@ -44,7 +46,7 @@ export default function SignUp() {
   };
   return (
     <>
-      <Center mb="10" fontSize="20px">
+      <Center mb="6" fontSize="20px">
         Join the Family!
       </Center>
       {/* <Header>Join the Family</Header> */}
@@ -73,7 +75,7 @@ export default function SignUp() {
           onChange={handleInputChange}
           placeholder="Password"
         />
-        <Button onClick={handleFormSubmit} bg="#fce38a" align="center">
+        <Button onClick={handleFormSubmit} bg=" #D991EE" align="center">
           Come on In!
         </Button>
       </Stack>

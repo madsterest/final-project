@@ -11,9 +11,10 @@ export default function Card(props) {
       border="1px"
       borderRadius="30"
       borderColor="#364f6b"
-      bg="#fce38a"
+      bg="#008080"
       _hover={{
-        borderColor: "#fc5185",
+        border: "2px",
+        borderColor: "#D991EE",
         textDecoration: "none",
       }}
     >
@@ -24,10 +25,10 @@ export default function Card(props) {
           objectFit="cover"
           boxSize="200px"
         />
-        <Text fontSize="20px" fontWeight="bold" color="#364f6b">
+        <Text fontSize="20px" fontWeight="bold" color="#d3d3d3">
           <LinkOverlay
             _hover={{
-              color: "#fc5185",
+              color: "#d3d3d3",
               textDecoration: "none",
             }}
             href="#"
@@ -35,9 +36,9 @@ export default function Card(props) {
             {props.title}
           </LinkOverlay>
         </Text>
-        <Text color="#364f6b">Prep Time: {props.prep}</Text>
-        <Text color="#364f6b">Cook Time: {props.cook}</Text>
-        <Text color="#364f6b">{props.description}</Text>
+        <Text color="#d3d3d3">Prep Time: {props.prep}</Text>
+        <Text color="#d3d3d3">Cook Time: {props.cook}</Text>
+        <Text color="#d3d3d3">{props.description}</Text>
       </LinkBox>
     </WrapItem>
   );

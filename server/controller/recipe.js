@@ -34,4 +34,21 @@ module.exports = {
     const token = signToken(user);
     res.json({ token, user });
   },
+  async userLogin(req, res) {
+    const user = await User.findOne({ username: req.body.username });
+
+    if (!user) {
+      res.status(400).json({ message: "Unable to sign in" });
+    }
+    console.log("Correct User");
+
+    const checkPw = await user.passwordCheck(req.body.password);
+
+    if (!checkPw) {
+      return res.status(400).json({ message: "Unable to sign in" });
+    }
+
+    const token = signToken(user);
+    res.json({ token, user });
+  },
 };

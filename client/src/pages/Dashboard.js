@@ -1,5 +1,5 @@
 import React from "react";
-import { Wrap } from "@chakra-ui/react";
+import { Wrap, Center } from "@chakra-ui/react";
 import Card from "../components/Card";
 
 export default function Dashboard() {
@@ -50,20 +50,25 @@ export default function Dashboard() {
     },
   ];
   return (
-    <Wrap spacing="30px" justify="center">
-      {recipes?.map((recipe) => {
-        return (
-          <Card
-            key={recipe._id}
-            title={recipe.name}
-            prep={recipe.prepTime}
-            cook={recipe.cookTime}
-            ingredients={recipe.ingredients}
-            instructions={recipe.instructions}
-            rating={recipe.rating}
-          ></Card>
-        );
-      })}
-    </Wrap>
+    <>
+      <Center mb="6" fontSize="20px">
+        {recipes.user}'s Recipes!'
+      </Center>
+      <Wrap spacing="30px" justify="center">
+        {recipes?.map((recipe) => {
+          return (
+            <Card
+              key={recipe._id}
+              title={recipe.name}
+              prep={recipe.prepTime}
+              cook={recipe.cookTime}
+              ingredients={recipe.ingredients}
+              instructions={recipe.instructions}
+              rating={recipe.rating}
+            ></Card>
+          );
+        })}
+      </Wrap>
+    </>
   );
 }

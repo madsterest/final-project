@@ -11,7 +11,7 @@ export default function NavBarContainer({ children }) {
       pr="8"
       mb="10"
       borderBottom="2px"
-      borderBottomColor="#fc5185"
+      borderBottomColor="#D991EE"
     >
       {children}
     </Flex>

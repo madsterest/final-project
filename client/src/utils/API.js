@@ -23,3 +23,13 @@ export const newUser = (newUser) => {
     body: JSON.stringify(newUser),
   });
 };
+
+export const userLogin = (userData) => {
+  return fetch("/api/user/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+};
