@@ -18,7 +18,7 @@ export default function MenuLink() {
           border="1px"
           borderColor="#3fc1c9"
           borderRadius="10px"
-          color="#364f6b"
+          color="#36454f"
           _hover={{
             borderColor: "#fc5185",
             textDecoration: "none",

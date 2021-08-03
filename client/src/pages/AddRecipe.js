@@ -1,63 +1,69 @@
-// import { useQuery, useMutation } from '@apollo/client';
-// import { useParams, Link } from 'react-router-dom';
-// import { CREATE_VOTE } from '../utils/mutations';
-// import { QUERY_MATCHUPS } from '../utils/queries';
+import React, { useState } from "react";
 
-// const Vote = () => {
-//   let { id } = useParams();
+import { Center, Stack, Input, FormLabel, Button } from "@chakra-ui/react";
 
-//   const { loading, data } = useQuery(QUERY_MATCHUPS, {
-//     variables: { _id: id },
-//   });
+export default function AddRecipe() {
+  const [ingredient, AddIngredient] = useState([]);
 
-//   const matchup = data?.matchups || [];
+  const handleIngredientAdd = (event) => {
+    return (
+      <Input
+        name="ingredient"
+        //   value={userData.username}
+        //   onChange={handleInputChange}
+        placeholder="200g Chicken Breast"
+      />
+    );
+  };
+  return (
+    <>
+      <Center mb="6" fontSize="20px">
+        What are you cooking for us today?
+      </Center>
+      {/* <Header>Join the Family</Header> */}
+      <Stack w="500px" align="center" mx="auto">
+        <FormLabel>Dish Name:</FormLabel>
+        <Input
+          name="name"
+          //   value={userData.name}
 
-//   const [createVote, { error }] = useMutation(CREATE_VOTE);
+          placeholder="Chicken Curry"
+        />
+        <FormLabel>Prep Time:</FormLabel>
+        <Input
+          name="prepTime"
+          //   value={userData.email}
+          //   onChange={handleInputChange}
+          placeholder="20 Mins"
+        />
+        <FormLabel>Cook Time:</FormLabel>
+        <Input
+          name="cookTime"
+          //   value={userData.email}
+          //   onChange={handleInputChange}
+          placeholder="1 Hr"
+        />
+        {/* <FormLabel>Ingredients:</FormLabel>
+        <Input
+          name="ingredient"
+          //   value={userData.username}
+          //   onChange={handleInputChange}
+          placeholder="200g Chicken Breast"
+        />
+        <Button size="sm" bg=" #D991EE" align="center">
+          Add Ingredient
+        </Button> */}
 
-//   const handleVote = async (techNum) => {
-//     try {
-//       await createVote({
-//         variables: { _id: id, techNum: techNum },
-//       });
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   };
-
-//   return (
-//     <div className="card bg-white card-rounded w-50">
-//       <div className="card-header bg-dark text-center">
-//         <h1>Here is the matchup!</h1>
-//       </div>
-//       {loading ? (
-//         <div>Loading...</div>
-//       ) : (
-//         <div className="card-body text-center mt-3">
-//           <h2>
-//             {matchup[0].tech1} vs. {matchup[0].tech2}
-//           </h2>
-//           <h3>
-//             {matchup[0].tech1_votes} : {matchup[0].tech2_votes}
-//           </h3>
-//           <button className="btn btn-info" onClick={() => handleVote(1)}>
-//             Vote for {matchup[0].tech1}
-//           </button>{' '}
-//           <button className="btn btn-info" onClick={() => handleVote(2)}>
-//             Vote for {matchup[0].tech2}
-//           </button>
-//           <div className="card-footer text-center m-3">
-//             <br></br>
-//             <Link to="/">
-//               <button className="btn btn-lg btn-danger">
-//                 View all matchups
-//               </button>
-//             </Link>
-//           </div>
-//         </div>
-//       )}
-//       {error && <div>Something went wrong...</div>}
-//     </div>
-//   );
-// };
-
-// export default Vote;
+        <Input
+          name="password"
+          //   value={userData.password}
+          //   onChange={handleInputChange}
+          placeholder="Password"
+        />
+        <Button onClick={handleIngredientAdd} bg=" #D991EE" align="center">
+          Come on In!
+        </Button>
+      </Stack>
+    </>
+  );
+}

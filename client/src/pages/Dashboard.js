@@ -1,8 +1,13 @@
 import React from "react";
-import { Wrap, Center } from "@chakra-ui/react";
+import { Wrap, Center, Link, Button } from "@chakra-ui/react";
 import Card from "../components/Card";
 
 export default function Dashboard() {
+  const login = localStorage.getItem("id_token");
+
+  if (!login) {
+    window.location.assign("/login");
+  }
   const recipes = [
     {
       name: "Chicken Puffs",
@@ -49,6 +54,11 @@ export default function Dashboard() {
       user: "6102893526de5735bb0cca6c",
     },
   ];
+
+  const handleOnClick = () => {
+    window.location.assign("/new-recipe");
+  };
+
   return (
     <>
       <Center mb="6" fontSize="20px">
@@ -68,6 +78,9 @@ export default function Dashboard() {
             ></Card>
           );
         })}
+        <Button onClick={handleOnClick} bg=" #D991EE" align="center">
+          Add a New Recipe
+        </Button>
       </Wrap>
     </>
   );

@@ -10,10 +10,9 @@ export default function MenuItem({ href, children }) {
       py="2"
       px="5"
       border="1px"
-      // bg=" #75ffff"
       borderColor=" #75ffff"
       borderRadius="10px"
-      color="#364f6b"
+      color=" #36454f"
       _hover={{
         borderColor: "#D991EE",
         textDecoration: "none",

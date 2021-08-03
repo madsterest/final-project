@@ -39,6 +39,10 @@ const recipeSchema = new Schema({
       ref: "Comment",
     },
   ],
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 const Recipe = model("Recipe", recipeSchema);
