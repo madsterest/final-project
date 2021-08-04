@@ -29,17 +29,15 @@ export default function Home() {
     <Wrap spacing="30px" justify="center">
       {recipes?.map((recipe) => {
         return (
-          <>
-            <Card
-              key={recipe._id}
-              title={recipe.name}
-              prep={recipe.prepTime}
-              cook={recipe.cookTime}
-              img={recipe.img}
-              description={recipe.description}
-              rating={recipe.rating}
-            />
-          </>
+          <Card
+            key={recipe._id}
+            title={recipe.name}
+            prep={recipe.prepTime}
+            cook={recipe.cookTime}
+            img={recipe.img}
+            description={recipe.description}
+            rating={recipe.rating}
+          />
         );
       })}
     </Wrap>

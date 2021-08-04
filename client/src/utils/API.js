@@ -6,10 +6,11 @@ export const getRecipes = () => {
   });
 };
 
-export const getUserRecipes = () => {
-  return fetch("/api/user", {
+export const getUserRecipes = (token, id) => {
+  return fetch(`/api/user/${id}`, {
     headers: {
       "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
   });
 };
@@ -31,5 +32,16 @@ export const userLogin = (userData) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(userData),
+  });
+};
+
+export const addNewRecipe = (recipeData, token) => {
+  return fetch("/api/recipes/new", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(recipeData),
   });
 };
