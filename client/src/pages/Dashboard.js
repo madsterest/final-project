@@ -27,8 +27,7 @@ export default function Dashboard() {
           return false;
         }
         const userId = Auth.getUserId(token);
-        console.log(userId);
-        console.log(token);
+
         const response = await getUserRecipes(token, userId);
 
         if (!response.ok) {
@@ -37,8 +36,8 @@ export default function Dashboard() {
 
         const userData = await response.json();
         console.log(userData);
+
         const recipeData = userData[0].recipes;
-        console.log(recipes);
 
         setRecipes(recipeData);
       } catch (err) {
@@ -46,7 +45,7 @@ export default function Dashboard() {
       }
     };
     getRecipes();
-  }, [recipes]);
+  }, []);
 
   if (!login) {
     window.location.assign("/login");
@@ -79,7 +78,7 @@ export default function Dashboard() {
               instructions={recipe.instructions}
               rating={recipe.rating}
               _id={recipe._id}
-              user={recipe.user}
+              img={recipe.img}
             ></Card>
           );
         })}

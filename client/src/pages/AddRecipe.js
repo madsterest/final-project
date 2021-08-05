@@ -57,12 +57,12 @@ export default function AddRecipe() {
     console.log(formData);
   };
 
-  // const onPictureChange = (event) => {
-  //   const image = URL.createObjectURL(event.target.files[0]);
-  //   console.log(image);
-  //   const list = { ...formData, img: image };
-  //   addFormData(list);
-  // };
+  const onPictureChange = (event) => {
+    const image = URL.createObjectURL(event.target.files[0]);
+    console.log(image);
+    const list = { ...formData, img: event.target.files[0] };
+    addFormData(list);
+  };
 
   const handleAddClick = (event) => {
     const buttonId = event.target.id;
@@ -120,97 +120,99 @@ export default function AddRecipe() {
 
   return (
     <>
-      <Center mb="6" fontSize="20px">
-        What are you cooking for us today?
-      </Center>
-      {/* <Header>Join the Family</Header> */}
-      <Stack w="500px" align="center" mx="auto" mb="20">
-        <FormLabel>Dish Name:</FormLabel>
-        <Input
-          name="name"
-          value={formData.name}
-          onChange={handleOnChange}
-          placeholder="Wine Cream Chicken"
-        />
-        <FormLabel>Description:</FormLabel>
-        <Input
-          name="description"
-          value={formData.description}
-          onChange={handleOnChange}
-          placeholder="Creamy chicken bake covered in breadcrumbs. Perfect for a holiday feast or a cozy night in"
-        />
-        <FormLabel>Prep Time:</FormLabel>
-        <Input
-          name="prepTime"
-          value={formData.prepTime}
-          onChange={handleOnChange}
-          placeholder="20 Mins"
-        />
-        <FormLabel>Cook Time:</FormLabel>
-        <Input
-          name="cookTime"
-          value={formData.cookTime}
-          onChange={handleOnChange}
-          placeholder="1 Hr"
-        />
-        <FormLabel>Ingredients:</FormLabel>
-        {formData.ingredients.map((ingredient, i) => {
-          return (
-            <Input
-              key={i}
-              name="ingredients"
-              value={ingredient}
-              onChange={(e) => handleIngredientChange(e, i)}
-              placeholder="200g Chicken Breast"
-            />
-          );
-        })}
-        <Button
-          id="ingredient"
-          onClick={handleAddClick}
-          size="sm"
-          bg=" #D991EE"
-          align="center"
-        >
-          Add Ingredient
-        </Button>
-        <FormLabel>Instructions:</FormLabel>
-        {formData.instructions.map((instruction, i) => {
-          return (
-            <Input
-              key={i}
-              name="instructions"
-              value={instruction}
-              onChange={(e) => handleInstructionChange(e, i)}
-              placeholder="Preheat Oven to 250 degrees"
-            />
-          );
-        })}
-        <Button
-          id="instruction"
-          onClick={(e) => handleAddClick(e)}
-          size="sm"
-          bg=" #D991EE"
-          align="center"
-        >
-          Add Step
-        </Button>
-        <Input
-          name="img"
-          // onChange={onPictureChange}
-          type="file"
-          accept="img/x-png"
-        />
-        <Image src={formData.img} />
-        <Button
-          onClick={(e) => handleFormSubmit(e)}
-          size="md"
-          bg=" #D991EE"
-          align="center"
-        >
-          Create Recipe!
-        </Button>
-      </Stack>
+      <form encType="multipart/form-data">
+        <Center mb="6" fontSize="20px">
+          What are you cooking for us today?
+        </Center>
+        {/* <Header>Join the Family</Header> */}
+        <Stack w="500px" align="center" mx="auto" mb="20">
+          <FormLabel>Dish Name:</FormLabel>
+          <Input
+            name="name"
+            value={formData.name}
+            onChange={handleOnChange}
+            placeholder="Wine Cream Chicken"
+          />
+          <FormLabel>Description:</FormLabel>
+          <Input
+            name="description"
+            value={formData.description}
+            onChange={handleOnChange}
+            placeholder="Creamy chicken bake covered in breadcrumbs. Perfect for a holiday feast or a cozy night in"
+          />
+          <FormLabel>Prep Time:</FormLabel>
+          <Input
+            name="prepTime"
+            value={formData.prepTime}
+            onChange={handleOnChange}
+            placeholder="20 Mins"
+          />
+          <FormLabel>Cook Time:</FormLabel>
+          <Input
+            name="cookTime"
+            value={formData.cookTime}
+            onChange={handleOnChange}
+            placeholder="1 Hr"
+          />
+          <FormLabel>Ingredients:</FormLabel>
+          {formData.ingredients.map((ingredient, i) => {
+            return (
+              <Input
+                key={i}
+                name="ingredients"
+                value={ingredient}
+                onChange={(e) => handleIngredientChange(e, i)}
+                placeholder="200g Chicken Breast"
+              />
+            );
+          })}
+          <Button
+            id="ingredient"
+            onClick={handleAddClick}
+            size="sm"
+            bg=" #D991EE"
+            align="center"
+          >
+            Add Ingredient
+          </Button>
+          <FormLabel>Instructions:</FormLabel>
+          {formData.instructions.map((instruction, i) => {
+            return (
+              <Input
+                key={i}
+                name="instructions"
+                value={instruction}
+                onChange={(e) => handleInstructionChange(e, i)}
+                placeholder="Preheat Oven to 250 degrees"
+              />
+            );
+          })}
+          <Button
+            id="instruction"
+            onClick={(e) => handleAddClick(e)}
+            size="sm"
+            bg=" #D991EE"
+            align="center"
+          >
+            Add Step
+          </Button>
+          <Input
+            name="img"
+            onChange={onPictureChange}
+            type="file"
+            accept="img/x-png"
+          />
+
+          <Button
+            onClick={(e) => handleFormSubmit(e)}
+            size="md"
+            bg=" #D991EE"
+            align="center"
+          >
+            Create Recipe!
+          </Button>
+        </Stack>
+      </form>
     </>
   );
 }

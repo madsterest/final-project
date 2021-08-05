@@ -43,7 +43,7 @@ export default function Home() {
             description={recipe.description}
             rating={recipe.rating}
             _id={recipe._id}
-            user={recipe.user}
+            user={recipe.user.name}
           />
         );
       })}

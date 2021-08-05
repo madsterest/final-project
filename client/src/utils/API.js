@@ -36,13 +36,17 @@ export const userLogin = (userData) => {
 };
 
 export const addNewRecipe = (recipeData, token) => {
+  var data = new FormData();
+  for (const key in recipeData) {
+    data.append(key, recipeData[key]);
+  }
+
   return fetch("/api/recipes/new", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(recipeData),
+    body: data,
   });
 };
 

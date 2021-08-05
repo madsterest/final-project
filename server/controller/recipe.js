@@ -1,5 +1,17 @@
 const { Recipe, User } = require("../models");
 const { signToken } = require("../utils/auth");
+const path = require("path");
+
+const saveImg = (img) =>
+  new Promise((resolve, reject) => {
+    img.mv(path.join(__dirname, "../uploads/" + img.name), function (err) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
 
 module.exports = {
   async getRecipes(req, res) {
@@ -53,7 +65,11 @@ module.exports = {
   },
   async createRecipe(req, res) {
     try {
-      const newRecipe = await Recipe.create(req.body);
+      console.log(req.files);
+      const img = req.files.img;
+      await saveImg(img);
+
+      const newRecipe = await Recipe.create({ ...req.body, img: img.name });
       const recipeId = newRecipe._id;
       const userId = newRecipe.user;
       const addToUser = await User.findOneAndUpdate(
