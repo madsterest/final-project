@@ -3,7 +3,6 @@ const { Schema, model } = require("mongoose");
 const recipeSchema = new Schema({
   name: {
     type: String,
-    required: true,
     unique: true,
   },
   prepTime: {
@@ -22,10 +21,6 @@ const recipeSchema = new Schema({
       type: String,
     },
   ],
-  // img: {
-  //   data: Buffer,
-  //   contentType: String,
-  // },
   description: {
     type: String,
   },

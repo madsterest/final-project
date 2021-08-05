@@ -6,7 +6,17 @@ import { getUserRecipes } from "../utils/API";
 
 export default function Dashboard() {
   const login = localStorage.getItem("id_token");
-  const [recipes, setRecipes] = useState([]);
+  const [recipes, setRecipes] = useState([
+    {
+      name: "",
+      description: "",
+      prepTime: "",
+      cookTime: "",
+      ingredients: [""],
+      instructions: [""],
+      user: "",
+    },
+  ]);
 
   useEffect(() => {
     const getRecipes = async () => {
@@ -18,6 +28,7 @@ export default function Dashboard() {
         }
         const userId = Auth.getUserId(token);
         console.log(userId);
+        console.log(token);
         const response = await getUserRecipes(token, userId);
 
         if (!response.ok) {
@@ -25,16 +36,17 @@ export default function Dashboard() {
         }
 
         const userData = await response.json();
-        const recipes = userData[0].recipes;
+        console.log(userData);
+        const recipeData = userData[0].recipes;
         console.log(recipes);
 
-        setRecipes(recipes);
+        setRecipes(recipeData);
       } catch (err) {
         console.error(err);
       }
     };
     getRecipes();
-  }, []);
+  }, [recipes]);
 
   if (!login) {
     window.location.assign("/login");
@@ -66,8 +78,8 @@ export default function Dashboard() {
               ingredients={recipe.ingredients}
               instructions={recipe.instructions}
               rating={recipe.rating}
-              img={recipe.img}
               _id={recipe._id}
+              user={recipe.user}
             ></Card>
           );
         })}

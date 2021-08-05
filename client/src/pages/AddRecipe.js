@@ -18,7 +18,6 @@ export default function AddRecipe() {
     cookTime: "",
     ingredients: [""],
     instructions: [""],
-    // img: "",
     user: "",
   });
 
@@ -97,7 +96,7 @@ export default function AddRecipe() {
       if (!response.ok) {
         throw new Error("Unable to finish request");
       }
-      const { newRecipe } = await response.json();
+      const newRecipe = await response.json();
 
       console.log(newRecipe);
     } catch (err) {

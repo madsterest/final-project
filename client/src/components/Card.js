@@ -27,7 +27,7 @@ export default function Card(props) {
     >
       <LinkBox>
         <Container mb="0">
-          <Text>Created by </Text>
+          <Text>Created by {props.user}</Text>
         </Container>
         <Image
           src={props.img}

@@ -6,9 +6,7 @@ const {
 } = require("../../controller/recipe");
 const { authMiddleware } = require("../../utils/auth");
 
-// router.route("/").get(getUserRecipes);
-
-router.route("/:id").get(authMiddleware, getUserRecipes);
+router.route("/:id").get(getUserRecipes);
 
 router.route("/new").post(createUser);
 

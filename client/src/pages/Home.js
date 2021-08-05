@@ -17,8 +17,12 @@ export default function Home() {
         if (!response.ok) {
           throw new Error("Something went wrong");
         }
-        const recipes = await response.json();
-        setRecipes(recipes);
+        const recipeData = await response.json();
+
+        console.log(recipeData);
+        setRecipes(recipeData);
+
+        console.log(recipes);
       } catch (err) {
         console.error(err);
       }
@@ -39,6 +43,7 @@ export default function Home() {
             description={recipe.description}
             rating={recipe.rating}
             _id={recipe._id}
+            user={recipe.user}
           />
         );
       })}
