@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Center, Stack, Input, FormLabel, Button } from "@chakra-ui/react";
+import {
+  Center,
+  Stack,
+  Input,
+  FormLabel,
+  Button,
+  Image,
+} from "@chakra-ui/react";
 import Auth from "../utils/auth";
 import { addNewRecipe } from "../utils/API";
 
@@ -11,7 +18,6 @@ export default function AddRecipe() {
     cookTime: "",
     ingredients: [""],
     instructions: [""],
-    description: "",
     img: "",
     user: "",
   });
@@ -53,7 +59,8 @@ export default function AddRecipe() {
   };
 
   const onPictureChange = (event) => {
-    const image = event.target.files[0];
+    const image = URL.createObjectURL(event.target.files[0]);
+    console.log(image);
     const list = { ...formData, img: image };
     addFormData(list);
   };
@@ -104,7 +111,6 @@ export default function AddRecipe() {
       cookTime: "",
       ingredients: [""],
       instructions: [""],
-      description: "",
       img: "",
       user: "",
     });
@@ -189,7 +195,13 @@ export default function AddRecipe() {
         >
           Add Step
         </Button>
-        <Input name="img" onChange={onPictureChange} type="file" />
+        <Input
+          name="img"
+          onChange={onPictureChange}
+          type="file"
+          accept="img/x-png"
+        />
+        <Image src={formData.img} />
         <Button
           onClick={(e) => handleFormSubmit(e)}
           size="md"

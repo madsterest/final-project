@@ -68,6 +68,7 @@ export default function Dashboard() {
               ingredients={recipe.ingredients}
               instructions={recipe.instructions}
               rating={recipe.rating}
+              img={recipe.img}
             ></Card>
           );
         })}

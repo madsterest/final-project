@@ -24,6 +24,7 @@ export default function Card(props) {
           align="center"
           objectFit="cover"
           boxSize="200px"
+          alt="Recipe Photo"
         />
         <Text fontSize="20px" fontWeight="bold" color="#ffffff">
           <LinkOverlay
@@ -31,7 +32,7 @@ export default function Card(props) {
               color: "#d3d3d3",
               textDecoration: "none",
             }}
-            href="#"
+            href="/view"
           >
             {props.title}
           </LinkOverlay>

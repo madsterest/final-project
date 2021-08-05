@@ -38,10 +38,7 @@ export const userLogin = (userData) => {
 export const addNewRecipe = (recipeData, token) => {
   return fetch("/api/recipes/new", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
     body: JSON.stringify(recipeData),
+    authorization: `Bearer ${token}`,
   });
 };
