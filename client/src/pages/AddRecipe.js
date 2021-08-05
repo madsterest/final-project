@@ -18,7 +18,7 @@ export default function AddRecipe() {
     cookTime: "",
     ingredients: [""],
     instructions: [""],
-    img: "",
+    // img: "",
     user: "",
   });
 
@@ -58,12 +58,12 @@ export default function AddRecipe() {
     console.log(formData);
   };
 
-  const onPictureChange = (event) => {
-    const image = URL.createObjectURL(event.target.files[0]);
-    console.log(image);
-    const list = { ...formData, img: image };
-    addFormData(list);
-  };
+  // const onPictureChange = (event) => {
+  //   const image = URL.createObjectURL(event.target.files[0]);
+  //   console.log(image);
+  //   const list = { ...formData, img: image };
+  //   addFormData(list);
+  // };
 
   const handleAddClick = (event) => {
     const buttonId = event.target.id;
@@ -104,6 +104,7 @@ export default function AddRecipe() {
       console.error(err);
     }
 
+    console.log(formData);
     addFormData({
       name: "",
       description: "",
@@ -111,11 +112,11 @@ export default function AddRecipe() {
       cookTime: "",
       ingredients: [""],
       instructions: [""],
-      img: "",
+      // img: "",
       user: "",
     });
 
-    window.location.assign("/dashboard");
+    // window.location.assign("/dashboard");
   };
 
   return (
@@ -197,7 +198,7 @@ export default function AddRecipe() {
         </Button>
         <Input
           name="img"
-          onChange={onPictureChange}
+          // onChange={onPictureChange}
           type="file"
           accept="img/x-png"
         />

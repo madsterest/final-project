@@ -7,6 +7,7 @@ import { getRecipes } from "../utils/API";
 
 export default function Home() {
   const [recipes, setRecipes] = useState([]);
+  console.log(recipes);
 
   useEffect(() => {
     const getRecipeData = async () => {
@@ -23,7 +24,7 @@ export default function Home() {
       }
     };
     getRecipeData();
-  }, [recipes]);
+  }, []);
 
   return (
     <Wrap spacing="30px" justify="center">
@@ -37,6 +38,7 @@ export default function Home() {
             img={recipe.img}
             description={recipe.description}
             rating={recipe.rating}
+            _id={recipe._id}
           />
         );
       })}

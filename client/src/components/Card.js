@@ -1,6 +1,13 @@
 import React from "react";
 
-import { WrapItem, Text, Image, LinkOverlay, LinkBox } from "@chakra-ui/react";
+import {
+  WrapItem,
+  Text,
+  Image,
+  LinkOverlay,
+  LinkBox,
+  Container,
+} from "@chakra-ui/react";
 
 export default function Card(props) {
   return (
@@ -19,6 +26,9 @@ export default function Card(props) {
       }}
     >
       <LinkBox>
+        <Container mb="0">
+          <Text>Created by </Text>
+        </Container>
         <Image
           src={props.img}
           align="center"
@@ -32,7 +42,7 @@ export default function Card(props) {
               color: "#d3d3d3",
               textDecoration: "none",
             }}
-            href="/view"
+            href={props._id}
           >
             {props.title}
           </LinkOverlay>

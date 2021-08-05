@@ -1,59 +1,52 @@
-import React, { useEffect, useState } from "react";
-import {
-  Wrap,
-  Center,
-  Link,
-  Button,
-  VStack,
-  Image,
-  Text,
-} from "@chakra-ui/react";
-import Card from "../components/Card";
-import Auth from "../utils/auth";
-import { getUserRecipes } from "../utils/API";
+import React, { useEffect, useState, useLayoutEffect } from "react";
+import { VStack, Image, Text } from "@chakra-ui/react";
+import { getIndividualRecipe } from "../utils/API";
+import SingleCard from "../components/SingleCard";
 
-export default function View() {
-  const recipes = {
-    name: "Chicken Puffs",
-    prepTime: "20",
-    cookTime: "30",
-    ingredients: ["Chicken", "Puff Pastry", "White Sauce"],
-    instructions: [
-      "Make white sauce",
-      "cook chicken",
-      "Wrap in pastry",
-      "bake",
-    ],
-    description:
-      "Delicious chicken pastry in a whote cream sauce. Perfect for a cold night in",
-    rating: "5",
-    user: "6102893526de5735bb0cca6c",
-  };
+export default function View(props) {
+  const [recipes, setRecipes] = useState({
+    name: "",
+    description: "",
+    prepTime: "",
+    cookTime: "",
+    ingredients: [""],
+    instructions: [""],
+    img: "",
+    user: "",
+  });
+  console.log(recipes);
+  console.log(recipes.name);
+
+  useEffect(() => {
+    const getRecipeData = async () => {
+      const recipeId = props.match.params.id;
+
+      console.log(recipeId);
+      try {
+        const response = await getIndividualRecipe(recipeId);
+
+        if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
+        const recipeData = await response.json();
+
+        setRecipes(recipeData[0]);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getRecipeData();
+  }, []);
+
   return (
-    <VStack>
-      <Text>{recipes.name}</Text>
-      <Text>{recipes.description}</Text>
-      <Image
-        src={recipes.img}
-        mx="auto"
-        objectFit="cover"
-        boxSize="400px"
-        alt="Recipe Photo"
-      />
-      <Text>Prep Time: {recipes.prepTime}</Text>
-      <Text>Cook Time: {recipes.cookTime}</Text>
-      <Text>Ingredients:</Text>
-      {recipes.ingredients.map((ingredient) => {
-        return <Text>{ingredient}</Text>;
-      })}
-      <Text>Instructions:</Text>
-      {recipes.instructions.map((instruction, index) => {
-        return (
-          <Text>
-            {index + 1}. {instruction}
-          </Text>
-        );
-      })}
-    </VStack>
+    <SingleCard
+      name={recipes.name}
+      prepTime={recipes.prepTime}
+      cookTime={recipes.cookTime}
+      ingredients={recipes.ingredients}
+      instructions={recipes.instructions}
+      desciption={recipes.description}
+      user={recipes.user}
+    />
   );
 }

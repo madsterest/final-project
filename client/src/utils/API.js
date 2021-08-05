@@ -42,3 +42,11 @@ export const addNewRecipe = (recipeData, token) => {
     authorization: `Bearer ${token}`,
   });
 };
+
+export const getIndividualRecipe = (recipeId) => {
+  return fetch(`/api/recipes/${recipeId}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};

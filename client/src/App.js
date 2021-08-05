@@ -19,7 +19,7 @@ function App() {
         <Route exact path="/login" component={Login} />
         {/* <Route exact path="/favs" component={Home} /> */}
         <Route exact path="/new-recipe" component={AddRecipe} />
-        <Route exact path="/view" component={View} />
+        <Route exact path="/:id" component={View} />
       </Switch>
     </Router>
   );

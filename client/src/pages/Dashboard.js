@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Wrap, Center, Link, Button } from "@chakra-ui/react";
+import { Wrap, Center, Button } from "@chakra-ui/react";
 import Card from "../components/Card";
 import Auth from "../utils/auth";
 import { getUserRecipes } from "../utils/API";
@@ -7,8 +7,6 @@ import { getUserRecipes } from "../utils/API";
 export default function Dashboard() {
   const login = localStorage.getItem("id_token");
   const [recipes, setRecipes] = useState([]);
-  // const [loading, setLoading] = useState(false);
-  // let componentMounted = true;
 
   useEffect(() => {
     const getRecipes = async () => {
@@ -69,6 +67,7 @@ export default function Dashboard() {
               instructions={recipe.instructions}
               rating={recipe.rating}
               img={recipe.img}
+              _id={recipe._id}
             ></Card>
           );
         })}

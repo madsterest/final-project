@@ -4,7 +4,7 @@ const { signToken } = require("../utils/auth");
 module.exports = {
   async getRecipes(req, res) {
     try {
-      const allRecipes = await Recipe.find({});
+      const allRecipes = await Recipe.find({}).populate({ path: "user" });
 
       res.status(200).json(allRecipes);
     } catch (err) {
@@ -60,7 +60,17 @@ module.exports = {
         { _id: userId },
         { $push: { recipes: recipeId } }
       );
-      res.status(200).json({ newRecipe });
+      res.status(200).json(newRecipe);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json(err);
+    }
+  },
+  async getIndividRecipe(req, res) {
+    try {
+      const recipeData = await Recipe.find({ _id: req.params.id });
+
+      res.status(200).json(recipeData);
     } catch (err) {
       console.log(err);
       return res.status(400).json(err);
