@@ -45,6 +45,7 @@ export default function View(props) {
       cookTime={recipes.cookTime}
       ingredients={recipes.ingredients}
       instructions={recipes.instructions}
+      img={recipes.img}
       desciption={recipes.description}
       user={recipes.user}
     />

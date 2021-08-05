@@ -57,3 +57,14 @@ export const getIndividualRecipe = (recipeId) => {
     },
   });
 };
+
+export const editRecipe = (formData, token) => {
+  return fetch(`/api/recipes/edit`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(formData),
+  });
+};

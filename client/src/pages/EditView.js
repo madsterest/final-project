@@ -8,9 +8,9 @@ import {
   Image,
 } from "@chakra-ui/react";
 import Auth from "../utils/auth";
-import { addNewRecipe } from "../utils/API";
+import { editRecipe, getIndividualRecipe } from "../utils/API";
 
-export default function AddRecipe() {
+export default function AddRecipe(props) {
   const [formData, addFormData] = useState({
     name: "",
     description: "",
@@ -18,20 +18,31 @@ export default function AddRecipe() {
     cookTime: "",
     ingredients: [""],
     instructions: [""],
+    img: "",
     user: "",
   });
 
+  console.log(formData);
+
   useEffect(() => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    const getRecipeData = async () => {
+      const recipeId = props.match.params.id;
 
-    if (!token) {
-      return false;
-    }
+      console.log(recipeId);
 
-    const userId = Auth.getUserId(token);
-    console.log(userId);
-    addFormData({ ...formData, user: userId });
-    console.log(formData);
+      try {
+        const response = await getIndividualRecipe(recipeId);
+
+        if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
+        const recipeData = await response.json();
+        addFormData(recipeData[0]);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getRecipeData();
   }, []);
 
   const handleOnChange = (event) => {
@@ -57,12 +68,11 @@ export default function AddRecipe() {
     console.log(formData);
   };
 
-  const onPictureChange = (event) => {
-    const image = URL.createObjectURL(event.target.files[0]);
-    console.log(image);
-    const list = { ...formData, img: event.target.files[0] };
-    addFormData(list);
-  };
+  //   const onPictureChange = (event) => {
+  //     const image = URL.createObjectURL(event.target.files[0]);
+  //     const list = { ...formData, img: event.target.files[0] };
+  //     addFormData(list);
+  //   };
 
   const handleAddClick = (event) => {
     const buttonId = event.target.id;
@@ -81,17 +91,9 @@ export default function AddRecipe() {
 
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    if (!token) {
-      return false;
-    }
-
-    const userId = Auth.getUserId(token);
-    console.log(userId);
-    addFormData({ ...formData, user: userId });
-
     try {
       console.log(formData);
-      const response = await addNewRecipe(formData, token);
+      const response = await editRecipe(formData, token);
 
       if (!response.ok) {
         throw new Error("Unable to finish request");
@@ -103,7 +105,6 @@ export default function AddRecipe() {
       console.error(err);
     }
 
-    console.log(formData);
     addFormData({
       name: "",
       description: "",
@@ -196,15 +197,15 @@ export default function AddRecipe() {
           >
             Add Step
           </Button>
-          <FormLabel>
-            *Warning* This cannot be changed later, so choose wisely!
+          {/* <FormLabel>
+            Current Image set to {formData.img}. Click below to change image
           </FormLabel>
           <Input
             name="img"
             onChange={onPictureChange}
             type="file"
             accept="img/x-png"
-          />
+          /> */}
 
           <Button
             onClick={(e) => handleFormSubmit(e)}

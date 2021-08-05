@@ -92,4 +92,17 @@ module.exports = {
       return res.status(400).json(err);
     }
   },
+  async editRecipe(req, res) {
+    try {
+      const editData = await Recipe.findOneAndUpdate(
+        { _id: req.body._id },
+        req.body,
+        { upsert: true, new: true }
+      );
+      res.status(200).json(editData);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json(err);
+    }
+  },
 };

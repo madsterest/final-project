@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import AddRecipe from "./pages/AddRecipe";
 import View from "./pages/View";
+import EditView from "./pages/EditView";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
         {/* <Route exact path="/favs" component={Home} /> */}
+        <Route exact path="/edit/:id" component={EditView} />
         <Route exact path="/new-recipe" component={AddRecipe} />
         <Route exact path="/:id" component={View} />
       </Switch>

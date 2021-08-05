@@ -6,18 +6,9 @@ import { getUserRecipes } from "../utils/API";
 
 export default function Dashboard() {
   const login = localStorage.getItem("id_token");
-  const [recipes, setRecipes] = useState([
-    {
-      name: "",
-      description: "",
-      prepTime: "",
-      cookTime: "",
-      ingredients: [""],
-      instructions: [""],
-      user: "",
-    },
-  ]);
+  const [recipes, setRecipes] = useState([]);
 
+  console.log(recipes);
   useEffect(() => {
     const getRecipes = async () => {
       try {
@@ -51,6 +42,15 @@ export default function Dashboard() {
     window.location.assign("/login");
   }
 
+  const handleEditClick = (event) => {
+    const recipeId = event.target.id;
+    window.location.assign(`/edit/${recipeId}`);
+  };
+
+  const handleDelete = (event) => {
+    const recipeId = event.target.id;
+  };
+
   const handleOnClick = () => {
     window.location.assign("/new-recipe");
   };
@@ -79,6 +79,8 @@ export default function Dashboard() {
               rating={recipe.rating}
               _id={recipe._id}
               img={recipe.img}
+              onEdit={handleEditClick}
+              onDelete={handleDelete}
             ></Card>
           );
         })}

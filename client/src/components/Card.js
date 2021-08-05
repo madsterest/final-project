@@ -7,6 +7,7 @@ import {
   LinkOverlay,
   LinkBox,
   Container,
+  Button,
 } from "@chakra-ui/react";
 
 export default function Card(props) {
@@ -26,15 +27,15 @@ export default function Card(props) {
       }}
     >
       <LinkBox>
-        <Container mb="0">
+        <Container>
           {props.user && <Text>Created by {props.user}</Text>}
         </Container>
         <Image
-          src={"/uploads/" + props.img}
-          align="center"
+          src={props.img}
           objectFit="cover"
           boxSize="200px"
           alt="Recipe Photo"
+          align="center"
         />
         <Text fontSize="20px" fontWeight="bold" color="#ffffff">
           <LinkOverlay
@@ -50,6 +51,14 @@ export default function Card(props) {
         <Text color="#ffffff">Prep Time: {props.prep}</Text>
         <Text color="#ffffff">Cook Time: {props.cook}</Text>
         <Text color="#ffffff">{props.description}</Text>
+        {props.onEdit && (
+          <Button onClick={props.onEdit} id={props._id}>
+            Edit
+          </Button>
+        )}
+        {props.delete && (
+          <Button onClick={props.onDelete} id={props._id}></Button>
+        )}
       </LinkBox>
     </WrapItem>
   );
