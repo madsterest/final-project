@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import { Wrap } from "@chakra-ui/react";
 import Card from "../components/Card";
-
-import { getRecipes } from "../utils/API";
+import Auth from "../utils/auth";
+import { getRecipes, addToFavourites } from "../utils/API";
 
 export default function Home() {
   const [recipes, setRecipes] = useState([]);
@@ -30,6 +30,33 @@ export default function Home() {
     getRecipeData();
   }, []);
 
+  const addFavourite = (event) => {
+    const recipeId = event.target.id;
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
+
+    const userId = Auth.getUserId(token);
+    console.log(recipeId, userId);
+
+    const getRecipeData = async () => {
+      try {
+        const response = await addToFavourites(recipeId, userId);
+
+        if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
+
+        const recipeData = await response.json();
+        console.log(recipeData);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getRecipeData();
+  };
+
   return (
     <Wrap spacing="30px" justify="center">
       {recipes?.map((recipe) => {
@@ -44,6 +71,7 @@ export default function Home() {
             rating={recipe.rating}
             _id={recipe._id}
             user={recipe.user.name}
+            favourite={addFavourite}
           />
         );
       })}

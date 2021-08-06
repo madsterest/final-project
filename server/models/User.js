@@ -27,10 +27,23 @@ const userSchema = new Schema({
       ref: "Recipe",
     },
   ],
-  favorites: [
+  favourites: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "Recipe",
+      name: String,
+      prepTime: String,
+      cookTime: String,
+      ingredients: [
+        {
+          type: String,
+        },
+      ],
+      instructions: [
+        {
+          type: String,
+        },
+      ],
+      img: String,
+      description: String,
     },
   ],
 });

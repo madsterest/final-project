@@ -61,6 +61,11 @@ export default function Card(props) {
             Delete
           </Button>
         )}
+        {props.favourite && (
+          <Button onClick={props.favourite} id={props._id}>
+            Add Copy to Favourites
+          </Button>
+        )}
       </LinkBox>
     </WrapItem>
   );

@@ -77,3 +77,13 @@ export const deleteRecipe = (recipeId, userId) => {
     },
   });
 };
+
+export const addToFavourites = (recipeId, userId) => {
+  return fetch(`/api/recipes/favourites/${recipeId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ userId }),
+  });
+};

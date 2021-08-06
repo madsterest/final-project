@@ -125,4 +125,24 @@ module.exports = {
       return res.status(400).json(err);
     }
   },
+  async addToFavourites(req, res) {
+    try {
+      const recipeData = await Recipe.find({ _id: req.params.recipeid });
+
+      const userUpdate = await User.findOneAndUpdate(
+        { _id: req.body.userId },
+        {
+          $push: {
+            favourites: recipeData,
+          },
+        },
+        { new: true }
+      );
+
+      res.status(200).json(userUpdate);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json(err);
+    }
+  },
 };
