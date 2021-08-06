@@ -105,4 +105,24 @@ module.exports = {
       return res.status(400).json(err);
     }
   },
+  async deleteRecipe(req, res) {
+    try {
+      const deleteData = await Recipe.findOneAndDelete({
+        _id: req.params.recipeid,
+      });
+
+      const deleteRecipeData = await User.findOneAndUpdate(
+        {
+          _id: req.params.userid,
+        },
+        { $pull: { recipes: req.params.recipeid } },
+        { new: true }
+      );
+
+      res.status(200).json(deleteRecipeData);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json(err);
+    }
+  },
 };

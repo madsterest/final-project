@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Wrap, Center, Button } from "@chakra-ui/react";
 import Card from "../components/Card";
 import Auth from "../utils/auth";
-import { getUserRecipes } from "../utils/API";
+import { getUserRecipes, deleteRecipe } from "../utils/API";
 
 export default function Dashboard() {
   const login = localStorage.getItem("id_token");
   const [recipes, setRecipes] = useState([]);
+  const [user, setUser] = useState();
+  console.log(user);
 
   console.log(recipes);
   useEffect(() => {
@@ -18,6 +20,7 @@ export default function Dashboard() {
           return false;
         }
         const userId = Auth.getUserId(token);
+        setUser(userId);
 
         const response = await getUserRecipes(token, userId);
 
@@ -49,6 +52,23 @@ export default function Dashboard() {
 
   const handleDelete = (event) => {
     const recipeId = event.target.id;
+    console.log(recipeId, user);
+
+    const removeRecipe = async () => {
+      try {
+        const response = await deleteRecipe(recipeId, user);
+
+        if (!response.ok) {
+          throw new Error("something went wrong");
+        }
+        const userData = await response.json();
+
+        setRecipes(userData.recipes);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    removeRecipe();
   };
 
   const handleOnClick = () => {

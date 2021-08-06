@@ -56,8 +56,10 @@ export default function Card(props) {
             Edit
           </Button>
         )}
-        {props.delete && (
-          <Button onClick={props.onDelete} id={props._id}></Button>
+        {props.onDelete && (
+          <Button m="5" onClick={props.onDelete} id={props._id}>
+            Delete
+          </Button>
         )}
       </LinkBox>
     </WrapItem>

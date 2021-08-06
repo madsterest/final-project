@@ -68,3 +68,12 @@ export const editRecipe = (formData, token) => {
     body: JSON.stringify(formData),
   });
 };
+
+export const deleteRecipe = (recipeId, userId) => {
+  return fetch(`/api/recipes/delete/${recipeId}/${userId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
