@@ -96,66 +96,63 @@ export default function AddRecipe() {
     }
   };
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-
+  const validate = () => {
     for (const element in formData) {
-      if (element === "") {
-        return false;
+      if (formData[element] === "") {
+        return;
       }
     }
 
-    if (false) {
-      return;
-    } else {
-      const token = Auth.loggedIn() ? Auth.getToken() : null;
+    handleFormSubmit();
+  };
+  const handleFormSubmit = async () => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-      if (!token) {
-        return false;
-      }
+    if (!token) {
+      return false;
+    }
 
-      const userId = Auth.getUserId(token);
-      console.log(userId);
-      addFormData({ ...formData, user: userId });
+    const userId = Auth.getUserId(token);
+    console.log(userId);
+    addFormData({ ...formData, user: userId });
 
-      try {
-        console.log(formData);
-        const response = await addNewRecipe(formData, token);
-
-        if (!response.ok) {
-          throw new Error("Unable to finish request");
-        }
-        const newRecipe = await response.json();
-
-        console.log(newRecipe);
-      } catch (err) {
-        console.error(err);
-      }
-
+    try {
       console.log(formData);
-      addFormData({
-        name: "",
-        description: "",
-        prepTime: "",
-        cookTime: "",
-        ingredients: [""],
-        instructions: [""],
-        img: "",
-        user: "",
-      });
+      const response = await addNewRecipe(formData, token);
 
-      addFormError({
-        name: false,
-        description: false,
-        prepTime: false,
-        cookTime: false,
-        ingredients: false,
-        instructions: false,
-        img: false,
-      });
+      if (!response.ok) {
+        throw new Error("Unable to finish request");
+      }
+      const newRecipe = await response.json();
 
-      window.location.assign("/dashboard");
+      console.log(newRecipe);
+    } catch (err) {
+      console.error(err);
     }
+
+    console.log(formData);
+    addFormData({
+      name: "",
+      description: "",
+      prepTime: "",
+      cookTime: "",
+      ingredients: [""],
+      instructions: [""],
+      img: "",
+      user: "",
+    });
+
+    addFormError({
+      name: false,
+      description: false,
+      prepTime: false,
+      cookTime: false,
+      ingredients: false,
+      instructions: false,
+      img: false,
+    });
+
+    window.location.assign("/dashboard");
   };
 
   return (
@@ -286,12 +283,7 @@ export default function AddRecipe() {
             accept="img/x-png"
           />
 
-          <Button
-            onClick={(e) => handleFormSubmit(e)}
-            size="md"
-            bg=" #D991EE"
-            align="center"
-          >
+          <Button onClick={validate} size="md" bg=" #D991EE" align="center">
             Create Recipe!
           </Button>
         </Stack>

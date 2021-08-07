@@ -32,10 +32,6 @@ export default function AddRecipe(props) {
     img: false,
   });
 
-  const [submitError, setSubmitError] = useState(false);
-
-  console.log(submitError);
-
   const URLPath = window.location.pathname;
   console.log(URLPath);
 
@@ -105,61 +101,57 @@ export default function AddRecipe(props) {
     }
   };
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-
-    const submitForm = async () => {
-      const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-      try {
-        console.log(formData);
-        const response = await editRecipe(formData, token);
-
-        if (!response.ok) {
-          throw new Error("Unable to finish request");
-        }
-        const newRecipe = await response.json();
-
-        console.log(newRecipe);
-      } catch (err) {
-        console.error(err);
-      }
-
-      addFormData({
-        name: "",
-        description: "",
-        prepTime: "",
-        cookTime: "",
-        ingredients: [""],
-        instructions: [""],
-        img: "",
-        user: "",
-      });
-
-      addFormData({
-        name: "",
-        description: "",
-        prepTime: "",
-        cookTime: "",
-        ingredients: [""],
-        instructions: [""],
-        img: "",
-        user: "",
-      });
-      console.log("Function still running");
-
-      window.location.assign("/dashboard");
-    };
-
+  const validate = () => {
     for (const element in formData) {
       if (formData[element] === "") {
-        setSubmitError(true);
+        return;
       }
     }
 
-    if (submitError) {
-      return false;
-    } else submitForm();
+    handleFormSubmit();
+  };
+
+  const handleFormSubmit = async () => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    try {
+      console.log(formData);
+      const response = await editRecipe(formData, token);
+
+      if (!response.ok) {
+        throw new Error("Unable to finish request");
+      }
+      const newRecipe = await response.json();
+
+      console.log(newRecipe);
+    } catch (err) {
+      console.error(err);
+    }
+
+    addFormData({
+      name: "",
+      description: "",
+      prepTime: "",
+      cookTime: "",
+      ingredients: [""],
+      instructions: [""],
+      img: "",
+      user: "",
+    });
+
+    addFormData({
+      name: "",
+      description: "",
+      prepTime: "",
+      cookTime: "",
+      ingredients: [""],
+      instructions: [""],
+      img: "",
+      user: "",
+    });
+    console.log("Function still running");
+
+    window.location.assign("/dashboard");
   };
 
   return (
@@ -278,12 +270,7 @@ export default function AddRecipe(props) {
             </Button>
           )}
 
-          <Button
-            onClick={(e) => handleFormSubmit(e)}
-            size="md"
-            bg=" #D991EE"
-            align="center"
-          >
+          <Button onClick={validate} size="md" bg=" #D991EE" align="center">
             Create Recipe!
           </Button>
         </Stack>

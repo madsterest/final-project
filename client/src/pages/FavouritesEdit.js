@@ -111,60 +111,57 @@ export default function FavouritesEdit(props) {
       });
     }
   };
-
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-
+  const validate = () => {
     for (const element in formData) {
-      if (element === "") {
-        return false;
+      if (formData[element] === "") {
+        return;
       }
     }
 
-    if (false) {
-      return;
-    } else {
-      const token = Auth.loggedIn() ? Auth.getToken() : null;
+    handleFormSubmit();
+  };
 
-      try {
-        console.log(formData);
+  const handleFormSubmit = async () => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-        console.log(user);
-        const response = await editFavourites(formData, user);
+    try {
+      console.log(formData);
 
-        if (!response.ok) {
-          throw new Error("Unable to finish request");
-        }
-        const newRecipe = await response.json();
+      console.log(user);
+      const response = await editFavourites(formData, user);
 
-        console.log(newRecipe);
-      } catch (err) {
-        console.error(err);
+      if (!response.ok) {
+        throw new Error("Unable to finish request");
       }
+      const newRecipe = await response.json();
 
-      addFormData({
-        name: "",
-        description: "",
-        prepTime: "",
-        cookTime: "",
-        ingredients: [""],
-        instructions: [""],
-        img: "",
-        user: "",
-      });
-
-      addFormError({
-        name: false,
-        description: false,
-        prepTime: false,
-        cookTime: false,
-        ingredients: false,
-        instructions: false,
-        img: false,
-      });
-
-      window.location.assign("/favs");
+      console.log(newRecipe);
+    } catch (err) {
+      console.error(err);
     }
+
+    addFormData({
+      name: "",
+      description: "",
+      prepTime: "",
+      cookTime: "",
+      ingredients: [""],
+      instructions: [""],
+      img: "",
+      user: "",
+    });
+
+    addFormError({
+      name: false,
+      description: false,
+      prepTime: false,
+      cookTime: false,
+      ingredients: false,
+      instructions: false,
+      img: false,
+    });
+
+    window.location.assign("/favs");
   };
 
   return (
@@ -283,12 +280,7 @@ export default function FavouritesEdit(props) {
             </Button>
           )}
 
-          <Button
-            onClick={(e) => handleFormSubmit(e)}
-            size="md"
-            bg=" #D991EE"
-            align="center"
-          >
+          <Button onClick={validate} size="md" bg=" #D991EE" align="center">
             Create Recipe!
           </Button>
         </Stack>
