@@ -57,7 +57,7 @@ export default function Card(props) {
           </Button>
         )}
         {props.onIndexEdit && (
-          <Button onClick={props.onEdit} id={props._id}>
+          <Button onClick={props.onIndexEdit} id={props.index}>
             Edit
           </Button>
         )}

@@ -48,6 +48,7 @@ export default function Favourites() {
 
   const handleEditClick = (event) => {
     const recipeId = event.target.id;
+    console.log(recipeId);
     window.location.assign(`/edit/favs/${recipeId}`);
   };
 
