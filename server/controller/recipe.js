@@ -132,7 +132,7 @@ module.exports = {
       const userUpdate = await User.findOneAndUpdate(
         { _id: req.body.userId },
         {
-          $push: {
+          $addToSet: {
             favourites: recipeData,
           },
         },
@@ -140,6 +140,48 @@ module.exports = {
       );
 
       res.status(200).json(userUpdate);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json(err);
+    }
+  },
+  async getFavourites(req, res) {
+    try {
+      const userData = await User.find({ _id: req.params.id });
+      res.status(200).json(userData);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json(err);
+    }
+  },
+  async editFavourites(req, res) {
+    try {
+      const userData = await User.findOneAndUpdate(
+        { _id: req.params.userid },
+        { $pull: { favourites: { _id: req.body._id } } }
+      );
+
+      const updateRecipe = await User.findOneAndUpdate(
+        {
+          _id: req.params.userid,
+        },
+        { $addToSet: { favourites: req.body } },
+        { new: true }
+      );
+      res.status(200).json(updateRecipe);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json(err);
+    }
+  },
+  async deleteFavourites(req, res) {
+    try {
+      const userData = await User.findOneAndUpdate(
+        { _id: req.params.userid },
+        { $pull: { favourites: { _id: req.params.recipeid } } },
+        { new: true }
+      );
+      res.status(200).json(userData);
     } catch (err) {
       console.log(err);
       return res.status(400).json(err);

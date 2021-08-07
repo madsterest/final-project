@@ -87,3 +87,30 @@ export const addToFavourites = (recipeId, userId) => {
     body: JSON.stringify({ userId }),
   });
 };
+
+export const getFavourites = (userId) => {
+  return fetch(`/api/recipes/favourites/${userId}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+export const editFavourites = (formData, userId) => {
+  return fetch(`/api/recipes/editfavourites/${userId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+};
+
+export const deleteFavourite = (recipeId, user) => {
+  return fetch(`/api/recipes/deletefavourite/${user}/${recipeId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};

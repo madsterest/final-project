@@ -56,6 +56,12 @@ export default function Card(props) {
             Edit
           </Button>
         )}
+        {props.onIndexEdit && (
+          <Button onClick={props.onEdit} id={props._id}>
+            Edit
+          </Button>
+        )}
+
         {props.onDelete && (
           <Button m="5" onClick={props.onDelete} id={props._id}>
             Delete

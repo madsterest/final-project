@@ -10,7 +10,7 @@ export default function MenuLink() {
     <HStack>
       <MenuItem href="/">Home</MenuItem>
       <MenuItem href="/dashboard">Your Recipes</MenuItem>
-      {/* <MenuItem href="favs">Favourites</MenuItem> */}
+      <MenuItem href="/favs">Favourites</MenuItem>
       {login ? (
         <Link
           py="2"

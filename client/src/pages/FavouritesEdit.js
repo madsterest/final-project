@@ -8,9 +8,9 @@ import {
   Image,
 } from "@chakra-ui/react";
 import Auth from "../utils/auth";
-import { editRecipe, getIndividualRecipe } from "../utils/API";
+import { editFavourites, getFavourites } from "../utils/API";
 
-export default function AddRecipe(props) {
+export default function FavouritesEdit(props) {
   const [formData, addFormData] = useState({
     name: "",
     description: "",
@@ -21,26 +21,33 @@ export default function AddRecipe(props) {
     img: "",
     user: "",
   });
-
+  const [user, setUser] = useState();
   console.log(formData);
-
-  const URLPath = window.location.pathname;
-  console.log(URLPath);
 
   useEffect(() => {
     const getRecipeData = async () => {
-      const recipeId = props.match.params.id;
-
-      console.log(recipeId);
+      const recipeIndex = props.match.params.id;
 
       try {
-        const response = await getIndividualRecipe(recipeId);
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+        if (!token) {
+          return false;
+        }
+        const user = Auth.getUserId(token);
+        setUser(user);
+
+        const response = await getFavourites(user);
 
         if (!response.ok) {
           throw new Error("Something went wrong");
         }
-        const recipeData = await response.json();
-        addFormData(recipeData[0]);
+        const favouritesData = await response.json();
+
+        console.log(favouritesData);
+
+        const chosenRecipe = favouritesData[0].favourites[recipeIndex - 1];
+        addFormData(chosenRecipe);
       } catch (err) {
         console.log(err);
       }
@@ -71,12 +78,6 @@ export default function AddRecipe(props) {
     console.log(formData);
   };
 
-  //   const onPictureChange = (event) => {
-  //     const image = URL.createObjectURL(event.target.files[0]);
-  //     const list = { ...formData, img: event.target.files[0] };
-  //     addFormData(list);
-  //   };
-
   const handleAddClick = (event) => {
     const buttonId = event.target.id;
     if (buttonId === "ingredient") {
@@ -96,7 +97,9 @@ export default function AddRecipe(props) {
 
     try {
       console.log(formData);
-      const response = await editRecipe(formData, token);
+
+      console.log(user);
+      const response = await editFavourites(formData, user);
 
       if (!response.ok) {
         throw new Error("Unable to finish request");
@@ -119,7 +122,7 @@ export default function AddRecipe(props) {
       user: "",
     });
 
-    window.location.assign("/dashboard");
+    window.location.assign("/favs");
   };
 
   return (
@@ -128,7 +131,6 @@ export default function AddRecipe(props) {
         <Center mb="6" fontSize="20px">
           What are you cooking for us today?
         </Center>
-        {/* <Header>Join the Family</Header> */}
         <Stack w="500px" align="center" mx="auto" mb="20">
           <FormLabel>Dish Name:</FormLabel>
           <Input
@@ -200,15 +202,6 @@ export default function AddRecipe(props) {
           >
             Add Step
           </Button>
-          {/* <FormLabel>
-            Current Image set to {formData.img}. Click below to change image
-          </FormLabel>
-          <Input
-            name="img"
-            onChange={onPictureChange}
-            type="file"
-            accept="img/x-png"
-          /> */}
 
           <Button
             onClick={(e) => handleFormSubmit(e)}

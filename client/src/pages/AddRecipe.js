@@ -10,7 +10,7 @@ import {
 import Auth from "../utils/auth";
 import { addNewRecipe } from "../utils/API";
 
-export default function AddRecipe() {
+export default function AddRecipe(props) {
   const [formData, addFormData] = useState({
     name: "",
     description: "",
