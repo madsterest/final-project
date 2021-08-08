@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Wrap, Center, Button, propNames } from "@chakra-ui/react";
+import { Wrap, Center } from "@chakra-ui/react";
 import Card from "../components/Card";
 import Auth from "../utils/auth";
 import { getFavourites, deleteFavourite } from "../utils/API";
@@ -23,7 +23,7 @@ export default function Favourites() {
         setUser(user);
 
         console.log(user);
-        const response = await getFavourites(user);
+        const response = await getFavourites(user, token);
 
         if (!response.ok) {
           throw new Error("Unable to finish request");
@@ -58,7 +58,13 @@ export default function Favourites() {
 
     const removeRecipe = async () => {
       try {
-        const response = await deleteFavourite(recipeId, user);
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+        if (!token) {
+          return false;
+        }
+
+        const response = await deleteFavourite(recipeId, user, token);
 
         if (!response.ok) {
           throw new Error("something went wrong");
@@ -76,8 +82,8 @@ export default function Favourites() {
 
   return (
     <>
-      <Center mb="6" fontSize="20px">
-        Favourites
+      <Center mb="6" fontSize="2xl" color="#009797">
+        Your Favourite Flavours
       </Center>
 
       <Wrap spacing="30px" justify="center">

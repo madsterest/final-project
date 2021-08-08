@@ -16,11 +16,11 @@ export default function MenuLink() {
           py="2"
           px="5"
           border="1px"
-          borderColor="#3fc1c9"
+          borderColor="#5ce1e6"
           borderRadius="10px"
           color="#36454f"
           _hover={{
-            borderColor: "#fc5185",
+            borderColor: "#dfb3f2",
             textDecoration: "none",
           }}
           onClick={Auth.logout}

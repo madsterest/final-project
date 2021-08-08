@@ -6,6 +6,7 @@ import {
   FormLabel,
   Button,
   Text,
+  Textarea,
 } from "@chakra-ui/react";
 import Auth from "../utils/auth";
 import { editFavourites, getFavourites } from "../utils/API";
@@ -48,7 +49,7 @@ export default function FavouritesEdit(props) {
         const user = Auth.getUserId(token);
         setUser(user);
 
-        const response = await getFavourites(user);
+        const response = await getFavourites(user, token);
 
         if (!response.ok) {
           throw new Error("Something went wrong");
@@ -111,24 +112,25 @@ export default function FavouritesEdit(props) {
       });
     }
   };
-  const validate = () => {
+  const validate = (event) => {
     for (const element in formData) {
       if (formData[element] === "") {
         return;
       }
     }
 
-    handleFormSubmit();
+    handleFormSubmit(event);
   };
 
-  const handleFormSubmit = async () => {
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     try {
       console.log(formData);
 
       console.log(user);
-      const response = await editFavourites(formData, user);
+      const response = await editFavourites(formData, user, token);
 
       if (!response.ok) {
         throw new Error("Unable to finish request");
@@ -183,7 +185,7 @@ export default function FavouritesEdit(props) {
             <Text color="#008080">Please input a name</Text>
           )}
           <FormLabel>Description:</FormLabel>
-          <Input
+          <Textarea
             name="description"
             value={formData.description}
             onChange={handleOnChange}

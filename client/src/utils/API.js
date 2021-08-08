@@ -69,48 +69,64 @@ export const editRecipe = (formData, token) => {
   });
 };
 
-export const deleteRecipe = (recipeId, userId) => {
+export const deleteRecipe = (recipeId, userId, token) => {
   return fetch(`/api/recipes/delete/${recipeId}/${userId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
   });
 };
 
-export const addToFavourites = (recipeId, userId) => {
+export const addToFavourites = (recipeId, userId, token) => {
   return fetch(`/api/recipes/favourites/${recipeId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ userId }),
   });
 };
 
-export const getFavourites = (userId) => {
+export const getFavourites = (userId, token) => {
   return fetch(`/api/recipes/favourites/${userId}`, {
     headers: {
       "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
   });
 };
 
-export const editFavourites = (formData, userId) => {
+export const editFavourites = (formData, userId, token) => {
   return fetch(`/api/recipes/editfavourites/${userId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(formData),
   });
 };
 
-export const deleteFavourite = (recipeId, user) => {
+export const deleteFavourite = (recipeId, user, token) => {
   return fetch(`/api/recipes/deletefavourite/${user}/${recipeId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
+  });
+};
+
+export const addComment = (recipeId, commentValue, token) => {
+  return fetch(`/api/recipes/comment/${recipeId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(commentValue),
   });
 };

@@ -5,6 +5,9 @@ const commentSchema = new Schema({
     type: String,
     required: true,
   },
+  username: {
+    type: String,
+  },
 });
 
 const Comment = model("Comment", commentSchema);

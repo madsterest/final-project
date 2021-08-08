@@ -1,4 +1,4 @@
-const { Recipe, User } = require("../models");
+const { Recipe, User, Comment } = require("../models");
 const { signToken } = require("../utils/auth");
 const path = require("path");
 
@@ -84,7 +84,9 @@ module.exports = {
   },
   async getIndividRecipe(req, res) {
     try {
-      const recipeData = await Recipe.find({ _id: req.params.id });
+      const recipeData = await Recipe.find({ _id: req.params.id }).populate({
+        path: "comments",
+      });
 
       res.status(200).json(recipeData);
     } catch (err) {
@@ -117,7 +119,7 @@ module.exports = {
         },
         { $pull: { recipes: req.params.recipeid } },
         { new: true }
-      );
+      ).populate({ path: "recipes" });
 
       res.status(200).json(deleteRecipeData);
     } catch (err) {
@@ -182,6 +184,27 @@ module.exports = {
         { new: true }
       );
       res.status(200).json(userData);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json(err);
+    }
+  },
+
+  async addComment(req, res) {
+    try {
+      const addComment = await Comment.create(req.body);
+
+      const commentId = addComment._id;
+
+      const addToRecipe = await Recipe.findOneAndUpdate(
+        { _id: req.params.recipeid },
+        { $push: { comments: commentId } },
+        { new: true }
+      ).populate({
+        path: "comments",
+      });
+
+      res.status(200).json(addToRecipe);
     } catch (err) {
       console.log(err);
       return res.status(400).json(err);

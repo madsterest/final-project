@@ -38,6 +38,15 @@ class AuthService {
       return false;
     }
   }
+  getUserName(token) {
+    try {
+      const decoded = decode(token);
+      const username = decoded.data.username;
+      return username;
+    } catch (err) {
+      return false;
+    }
+  }
 }
 
 export default new AuthService();

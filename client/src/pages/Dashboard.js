@@ -5,22 +5,24 @@ import Auth from "../utils/auth";
 import { getUserRecipes, deleteRecipe } from "../utils/API";
 
 export default function Dashboard() {
-  const login = localStorage.getItem("id_token");
+  const [hasToken, setHasToken] = useState(true);
   const [recipes, setRecipes] = useState([]);
   const [user, setUser] = useState();
   console.log(user);
-
   console.log(recipes);
+
   useEffect(() => {
     const getRecipes = async () => {
       try {
         const token = Auth.loggedIn() ? Auth.getToken() : null;
 
         if (!token) {
+          setHasToken(false);
           return false;
         }
         const userId = Auth.getUserId(token);
         setUser(userId);
+        console.log(user);
 
         const response = await getUserRecipes(token, userId);
 
@@ -41,7 +43,7 @@ export default function Dashboard() {
     getRecipes();
   }, []);
 
-  if (!login) {
+  if (!hasToken) {
     window.location.assign("/login");
   }
 
@@ -56,12 +58,19 @@ export default function Dashboard() {
 
     const removeRecipe = async () => {
       try {
-        const response = await deleteRecipe(recipeId, user);
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+        if (!token) {
+          return false;
+        }
+        const response = await deleteRecipe(recipeId, user, token);
 
         if (!response.ok) {
           throw new Error("something went wrong");
         }
         const userData = await response.json();
+
+        console.log(userData);
 
         setRecipes(userData.recipes);
       } catch (err) {
@@ -77,11 +86,19 @@ export default function Dashboard() {
 
   return (
     <>
-      <Center mb="6" fontSize="20px">
-        Your Recipes!'
+      <Center mb="6" fontSize="2xl" color="#009797">
+        Your Recipies
       </Center>
       <Center>
-        <Button onClick={handleOnClick} bg=" #D991EE" mx="auto" mb="10">
+        <Button
+          onClick={handleOnClick}
+          bg=" #dfb3f2"
+          mx="auto"
+          mb="10"
+          fontWeight="light"
+          fontSize="lg"
+          _hover={{ bg: "#f0f8fe" }}
+        >
           Add a New Recipe
         </Button>
       </Center>
@@ -94,6 +111,7 @@ export default function Dashboard() {
               title={recipe.name}
               prep={recipe.prepTime}
               cook={recipe.cookTime}
+              description={recipe.description}
               ingredients={recipe.ingredients}
               instructions={recipe.instructions}
               rating={recipe.rating}

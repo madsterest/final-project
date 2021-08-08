@@ -6,71 +6,128 @@ import {
   Image,
   LinkOverlay,
   LinkBox,
-  Container,
+  Center,
   Button,
 } from "@chakra-ui/react";
 
 export default function Card(props) {
   return (
     <WrapItem
+      key={props._id}
       w="300px"
-      h="400px"
+      h="500px"
       p="5"
       border="1px"
       borderRadius="30"
-      borderColor="#364f6b"
-      bg="#008080"
+      borderColor="#80c0c0"
+      bg="#99d5d5"
       _hover={{
         border: "2px",
-        borderColor: "#D991EE",
+        borderColor: "#dfb3f2",
         textDecoration: "none",
       }}
     >
-      <LinkBox>
-        <Container>
-          {props.user && <Text>Created by {props.user}</Text>}
-        </Container>
+      <LinkBox mx="auto">
         <Image
           src={props.img}
           objectFit="cover"
           boxSize="200px"
           alt="Recipe Photo"
           align="center"
+          mx="auto"
         />
-        <Text fontSize="20px" fontWeight="bold" color="#ffffff">
-          <LinkOverlay
-            _hover={{
-              color: "#d3d3d3",
-              textDecoration: "none",
-            }}
-            href={props._id}
-          >
-            {props.title}
-          </LinkOverlay>
-        </Text>
+        <Center>
+          <Text fontSize="20px" fontWeight="bold" color="#ffffff">
+            <LinkOverlay
+              _hover={{
+                color: "#ffffff",
+                textDecoration: "none",
+              }}
+              href={props._id}
+            >
+              {props.title}
+            </LinkOverlay>
+          </Text>
+        </Center>
+        <Center>
+          {props.user && (
+            <Text color="#009797" fontSize="md" mb="3">
+              Created by {props.user}
+            </Text>
+          )}
+        </Center>
+
         <Text color="#ffffff">Prep Time: {props.prep}</Text>
-        <Text color="#ffffff">Cook Time: {props.cook}</Text>
-        <Text color="#ffffff">{props.description}</Text>
+        <Text mb="1" color="#ffffff">
+          Cook Time: {props.cook}
+        </Text>
+        <Text pb="20" color="#ffffff">
+          {props.description}
+        </Text>
         {props.onEdit && (
-          <Button onClick={props.onEdit} id={props._id}>
-            Edit
-          </Button>
+          <Center>
+            <Button
+              borderRadius="15"
+              bg="#ffffff"
+              onClick={props.favourite}
+              id={props._id}
+              fontWeight="normal"
+              _hover={{ bg: "#f0f8fe" }}
+              onClick={props.onEdit}
+              id={props._id}
+              p="5"
+            >
+              Edit
+            </Button>
+          </Center>
         )}
         {props.onIndexEdit && (
-          <Button onClick={props.onIndexEdit} id={props.index}>
-            Edit
-          </Button>
+          <Center>
+            <Button
+              borderRadius="15"
+              bg="#ffffff"
+              onClick={props.favourite}
+              id={props._id}
+              fontWeight="normal"
+              _hover={{ bg: "#f0f8fe" }}
+              onClick={props.onIndexEdit}
+              id={props.index}
+            >
+              Edit
+            </Button>
+          </Center>
         )}
 
         {props.onDelete && (
-          <Button m="5" onClick={props.onDelete} id={props._id}>
-            Delete
-          </Button>
+          <Center>
+            <Button
+              borderRadius="15"
+              bg="#ffffff"
+              onClick={props.favourite}
+              id={props._id}
+              m="1"
+              fontWeight="normal"
+              _hover={{ bg: "#f0f8fe" }}
+              onClick={props.onDelete}
+              id={props._id}
+            >
+              Delete
+            </Button>
+          </Center>
         )}
         {props.favourite && (
-          <Button onClick={props.favourite} id={props._id}>
-            Add Copy to Favourites
-          </Button>
+          <Center>
+            <Button
+              borderRadius="15"
+              bg="#ffffff"
+              onClick={props.favourite}
+              id={props._id}
+              fontWeight="normal"
+              _hover={{ bg: "#f0f8fe" }}
+            >
+              Add Copy to Favourites
+            </Button>
+          </Center>
         )}
       </LinkBox>
     </WrapItem>

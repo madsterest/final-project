@@ -10,11 +10,11 @@ export default function MenuItem({ href, children }) {
       py="2"
       px="5"
       border="1px"
-      borderColor=" #75ffff"
+      borderColor="#5ce1e6"
       borderRadius="10px"
       color=" #36454f"
       _hover={{
-        borderColor: "#D991EE",
+        borderColor: "#dfb3f2",
         textDecoration: "none",
       }}
       as={ReachLink}

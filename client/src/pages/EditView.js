@@ -6,6 +6,7 @@ import {
   FormLabel,
   Button,
   Text,
+  Textarea,
 } from "@chakra-ui/react";
 import Auth from "../utils/auth";
 import { editRecipe, getIndividualRecipe } from "../utils/API";
@@ -101,17 +102,18 @@ export default function AddRecipe(props) {
     }
   };
 
-  const validate = () => {
+  const validate = (event) => {
     for (const element in formData) {
       if (formData[element] === "") {
         return;
       }
     }
 
-    handleFormSubmit();
+    handleFormSubmit(event);
   };
 
-  const handleFormSubmit = async () => {
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     try {
@@ -173,7 +175,7 @@ export default function AddRecipe(props) {
             <Text color="#008080">Please input a name</Text>
           )}
           <FormLabel>Description:</FormLabel>
-          <Input
+          <Textarea
             name="description"
             value={formData.description}
             onChange={handleOnChange}

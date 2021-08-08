@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-import { Wrap } from "@chakra-ui/react";
+import { Wrap, Center } from "@chakra-ui/react";
 import Card from "../components/Card";
 import Auth from "../utils/auth";
 import { getRecipes, addToFavourites } from "../utils/API";
 
 export default function Home() {
   const [recipes, setRecipes] = useState([]);
+
   console.log(recipes);
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export default function Home() {
 
     const getRecipeData = async () => {
       try {
-        const response = await addToFavourites(recipeId, userId);
+        const response = await addToFavourites(recipeId, userId, token);
 
         if (!response.ok) {
           throw new Error("Something went wrong");
@@ -58,23 +59,28 @@ export default function Home() {
   };
 
   return (
-    <Wrap spacing="30px" justify="center">
-      {recipes?.map((recipe) => {
-        return (
-          <Card
-            key={recipe._id}
-            title={recipe.name}
-            prep={recipe.prepTime}
-            cook={recipe.cookTime}
-            img={recipe.img}
-            description={recipe.description}
-            rating={recipe.rating}
-            _id={recipe._id}
-            user={recipe.user.name}
-            favourite={addFavourite}
-          />
-        );
-      })}
-    </Wrap>
+    <>
+      <Center color="#009797" mb="6" fontSize="2xl">
+        See what's cookin!
+      </Center>
+      <Wrap spacing="20" justify="center">
+        {recipes?.map((recipe) => {
+          return (
+            <Card
+              key={recipe._id}
+              title={recipe.name}
+              prep={recipe.prepTime}
+              cook={recipe.cookTime}
+              img={recipe.img}
+              description={recipe.description}
+              rating={recipe.rating}
+              _id={recipe._id}
+              user={recipe.user.name}
+              favourite={addFavourite}
+            />
+          );
+        })}
+      </Wrap>
+    </>
   );
 }

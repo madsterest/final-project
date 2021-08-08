@@ -6,6 +6,7 @@ import {
   FormLabel,
   Button,
   Text,
+  Textarea,
 } from "@chakra-ui/react";
 import Auth from "../utils/auth";
 import { addNewRecipe } from "../utils/API";
@@ -33,6 +34,7 @@ export default function AddRecipe() {
   });
 
   console.log(formError);
+
   useEffect(() => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -96,16 +98,17 @@ export default function AddRecipe() {
     }
   };
 
-  const validate = () => {
+  const validate = (event) => {
     for (const element in formData) {
       if (formData[element] === "") {
         return;
       }
     }
 
-    handleFormSubmit();
+    handleFormSubmit(event);
   };
-  const handleFormSubmit = async () => {
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -175,7 +178,7 @@ export default function AddRecipe() {
           )}
 
           <FormLabel>Description:</FormLabel>
-          <Input
+          <Textarea
             name="description"
             value={formData.description}
             onChange={handleOnChange}

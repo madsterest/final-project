@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useLayoutEffect } from "react";
-import { VStack, Image, Text } from "@chakra-ui/react";
-import { getIndividualRecipe } from "../utils/API";
+import React, { useEffect, useState } from "react";
+
+import { getIndividualRecipe, addComment } from "../utils/API";
 import SingleCard from "../components/SingleCard";
+import Auth from "../utils/auth";
 
 export default function View(props) {
   const [recipes, setRecipes] = useState({
@@ -13,15 +14,28 @@ export default function View(props) {
     instructions: [""],
     img: "",
     user: "",
+    comments: [""],
   });
-  console.log(recipes);
-  console.log(recipes.name);
+
+  const [recipeId, setRecipeId] = useState("");
+
+  const [hasToken, setHasToken] = useState(true);
+  const [comment, setComment] = useState({ comment: "", username: "" });
 
   useEffect(() => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      setHasToken(false);
+    }
+    const username = Auth.getUserName(token);
+    console.log(username);
+
+    setComment({ ...comment, username: username });
+
     const getRecipeData = async () => {
       const recipeId = props.match.params.id;
 
-      console.log(recipeId);
+      setRecipeId(recipeId);
       try {
         const response = await getIndividualRecipe(recipeId);
 
@@ -38,16 +52,62 @@ export default function View(props) {
     getRecipeData();
   }, []);
 
+  const handleOnChange = (event) => {
+    const { value } = event.target;
+    setComment({ ...comment, comment: value });
+  };
+
+  const validate = (event) => {
+    if (comment.comment === "") {
+      return;
+    }
+
+    handleFormSubmit(event);
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(comment);
+
+    try {
+      const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+      if (!token) {
+        return false;
+      }
+
+      const response = await addComment(recipeId, comment, token);
+
+      if (!response.ok) {
+        throw new Error("Something went wrong");
+      }
+      const recipeData = await response.json();
+
+      console.log(recipeData);
+      setRecipes({ ...recipes, comments: recipeData.comments });
+
+      setComment({ comment: "", user: "" });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <SingleCard
+      key={recipes._id}
       name={recipes.name}
       prepTime={recipes.prepTime}
       cookTime={recipes.cookTime}
       ingredients={recipes.ingredients}
       instructions={recipes.instructions}
       img={recipes.img}
-      desciption={recipes.description}
+      description={recipes.description}
       user={recipes.user}
+      comments={recipes.comments}
+      commentvalue={comment.comment}
+      onChange={handleOnChange}
+      onClick={validate}
+      loggedIn={hasToken}
     />
   );
 }
