@@ -4,14 +4,17 @@ import MenuItem from "./MenuItem.js";
 import Auth from "../utils/auth";
 
 export default function MenuLink() {
-  const login = localStorage.getItem("id_token");
+  const token = Auth.loggedIn() ? Auth.getToken() : null;
+  if (!token) {
+    return false;
+  }
 
   return (
     <HStack>
       <MenuItem href="/">Home</MenuItem>
       <MenuItem href="/dashboard">Your Recipes</MenuItem>
       <MenuItem href="/favs">Favourites</MenuItem>
-      {login ? (
+      {token ? (
         <Link
           py="2"
           px="5"
