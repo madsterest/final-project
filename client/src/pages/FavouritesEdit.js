@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  Center,
-  Stack,
-  Input,
-  FormLabel,
-  Button,
-  Text,
-  Textarea,
-} from "@chakra-ui/react";
 import Auth from "../utils/auth";
 import { editFavourites, getFavourites } from "../utils/API";
+import Form from "../components/Form";
 
 export default function FavouritesEdit(props) {
   const [formData, addFormData] = useState({
@@ -168,125 +160,16 @@ export default function FavouritesEdit(props) {
 
   return (
     <>
-      <form encType="multipart/form-data">
-        <Center mb="6" fontSize="20px">
-          What are you cooking for us today?
-        </Center>
-        <Stack w="500px" align="center" mx="auto" mb="20">
-          <FormLabel>Dish Name:</FormLabel>
-          <Input
-            name="name"
-            value={formData.name}
-            onChange={handleOnChange}
-            placeholder="Wine Cream Chicken"
-            onBlur={handleOnBlur}
-          />
-          {formError.name === true && (
-            <Text color="#008080">Please input a name</Text>
-          )}
-          <FormLabel>Description:</FormLabel>
-          <Textarea
-            name="description"
-            value={formData.description}
-            onChange={handleOnChange}
-            placeholder="Creamy chicken bake covered in breadcrumbs. Perfect for a holiday feast or a cozy night in"
-            onBlur={handleOnBlur}
-          />
-          {formError.description === true && (
-            <Text color="#008080">Please input a description</Text>
-          )}
-          <FormLabel>Prep Time:</FormLabel>
-          <Input
-            name="prepTime"
-            value={formData.prepTime}
-            onChange={handleOnChange}
-            placeholder="20 Mins"
-            onBlur={handleOnBlur}
-          />
-          {formError.prepTime === true && (
-            <Text color="#008080">Please input a preparation time</Text>
-          )}
-          <FormLabel>Cook Time:</FormLabel>
-          <Input
-            name="cookTime"
-            value={formData.cookTime}
-            onChange={handleOnChange}
-            placeholder="1 Hr"
-            onBlur={handleOnBlur}
-          />
-          {formError.cookTime === true && (
-            <Text color="#008080">Please input a Cook time</Text>
-          )}
-          <FormLabel>Ingredients:</FormLabel>
-          {formData.ingredients.map((ingredient, i) => {
-            return (
-              <Input
-                key={i}
-                name="ingredients"
-                value={ingredient}
-                onChange={(e) => handleIngredientChange(e, i)}
-                placeholder="200g Chicken Breast"
-                onBlur={(e) => handleOnBlur(e)}
-              />
-            );
-          })}
-          {formError.ingredients === true ? (
-            <>
-              <Button id="ingredient" size="sm" bg=" #D991EE" align="center">
-                Add Ingredient
-              </Button>
-
-              <Text color="#008080">Please input ingredients</Text>
-            </>
-          ) : (
-            <Button
-              id="ingredient"
-              onClick={handleAddClick}
-              size="sm"
-              bg=" #D991EE"
-              align="center"
-            >
-              Add Ingredient
-            </Button>
-          )}
-          <FormLabel>Instructions:</FormLabel>
-          {formData.instructions.map((instruction, i) => {
-            return (
-              <Input
-                key={i}
-                name="instructions"
-                value={instruction}
-                onChange={(e) => handleInstructionChange(e, i)}
-                placeholder="Preheat Oven to 250 degrees"
-                onBlur={(e) => handleOnBlur(e)}
-              />
-            );
-          })}
-          {formError.instructions === true ? (
-            <>
-              <Button id="instruction" size="sm" bg=" #D991EE" align="center">
-                Add Step
-              </Button>
-
-              <Text color="#008080">Please input instructions</Text>
-            </>
-          ) : (
-            <Button
-              id="instruction"
-              onClick={handleAddClick}
-              size="sm"
-              bg=" #D991EE"
-              align="center"
-            >
-              Add Step
-            </Button>
-          )}
-
-          <Button onClick={validate} size="md" bg=" #D991EE" align="center">
-            Create Recipe!
-          </Button>
-        </Stack>
-      </form>
+      <Form
+        formData={formData}
+        handleOnChange={handleOnChange}
+        handleOnBlur={handleOnBlur}
+        formError={formError}
+        handleIngredientChange={handleIngredientChange}
+        handleAddClick={handleAddClick}
+        handleInstructionChange={handleInstructionChange}
+        validate={validate}
+      />
     </>
   );
 }

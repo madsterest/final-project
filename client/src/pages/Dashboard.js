@@ -8,8 +8,6 @@ export default function Dashboard() {
   const [hasToken, setHasToken] = useState(true);
   const [recipes, setRecipes] = useState([]);
   const [user, setUser] = useState();
-  console.log(user);
-  console.log(recipes);
 
   useEffect(() => {
     const getRecipes = async () => {

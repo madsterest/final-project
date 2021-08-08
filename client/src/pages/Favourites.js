@@ -5,7 +5,7 @@ import Auth from "../utils/auth";
 import { getFavourites, deleteFavourite } from "../utils/API";
 
 export default function Favourites() {
-  const login = localStorage.getItem("id_token");
+  const [hasToken, setHasToken] = useState(true);
   const [recipes, setRecipes] = useState([]);
   const [user, setUser] = useState();
   console.log(user);
@@ -17,6 +17,7 @@ export default function Favourites() {
         const token = Auth.loggedIn() ? Auth.getToken() : null;
 
         if (!token) {
+          setHasToken(false);
           return false;
         }
         const user = Auth.getUserId(token);
@@ -42,7 +43,7 @@ export default function Favourites() {
     getRecipes();
   }, []);
 
-  if (!login) {
+  if (!hasToken) {
     window.location.assign("/login");
   }
 

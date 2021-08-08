@@ -8,6 +8,7 @@ import {
   LinkBox,
   Center,
   Button,
+  Container,
 } from "@chakra-ui/react";
 
 export default function Card(props) {
@@ -36,36 +37,36 @@ export default function Card(props) {
           align="center"
           mx="auto"
         />
-        <Center>
-          <Text fontSize="20px" fontWeight="bold" color="#ffffff">
-            <LinkOverlay
-              _hover={{
-                color: "#ffffff",
-                textDecoration: "none",
-              }}
-              href={props._id}
-            >
-              {props.title}
-            </LinkOverlay>
-          </Text>
-        </Center>
-        <Center>
-          {props.user && (
-            <Text color="#009797" fontSize="md" mb="3">
-              Created by {props.user}
-            </Text>
-          )}
-        </Center>
-
-        <Text color="#ffffff">Prep Time: {props.prep}</Text>
-        <Text mb="1" color="#ffffff">
-          Cook Time: {props.cook}
-        </Text>
-        <Text pb="20" color="#ffffff">
-          {props.description}
-        </Text>
-        {props.onEdit && (
+        <Container height="210px">
           <Center>
+            <Text fontSize="20px" fontWeight="bold" color="#ffffff">
+              <LinkOverlay
+                _hover={{
+                  color: "#ffffff",
+                  textDecoration: "none",
+                }}
+                href={props._id}
+              >
+                {props.title}
+              </LinkOverlay>
+            </Text>
+          </Center>
+          <Center>
+            {props.user && (
+              <Text color="#009797" fontSize="md" mb="3">
+                Created by {props.user}
+              </Text>
+            )}
+          </Center>
+
+          <Text color="#ffffff">Prep Time: {props.prep}</Text>
+          <Text mb="1" color="#ffffff">
+            Cook Time: {props.cook}
+          </Text>
+          <Text color="#ffffff">{props.description}</Text>
+        </Container>
+        <Container align="center">
+          {props.onEdit && (
             <Button
               borderRadius="15"
               bg="#ffffff"
@@ -79,10 +80,8 @@ export default function Card(props) {
             >
               Edit
             </Button>
-          </Center>
-        )}
-        {props.onIndexEdit && (
-          <Center>
+          )}
+          {props.onIndexEdit && (
             <Button
               borderRadius="15"
               bg="#ffffff"
@@ -95,11 +94,9 @@ export default function Card(props) {
             >
               Edit
             </Button>
-          </Center>
-        )}
+          )}
 
-        {props.onDelete && (
-          <Center>
+          {props.onDelete && (
             <Button
               borderRadius="15"
               bg="#ffffff"
@@ -113,22 +110,22 @@ export default function Card(props) {
             >
               Delete
             </Button>
-          </Center>
-        )}
-        {props.favourite && (
-          <Center>
-            <Button
-              borderRadius="15"
-              bg="#ffffff"
-              onClick={props.favourite}
-              id={props._id}
-              fontWeight="normal"
-              _hover={{ bg: "#f0f8fe" }}
-            >
-              Add Copy to Favourites
-            </Button>
-          </Center>
-        )}
+          )}
+          {props.favourite && (
+            <Center>
+              <Button
+                borderRadius="15"
+                bg="#ffffff"
+                onClick={props.favourite}
+                id={props._id}
+                fontWeight="normal"
+                _hover={{ bg: "#f0f8fe" }}
+              >
+                Add Copy to Favourites
+              </Button>
+            </Center>
+          )}
+        </Container>
       </LinkBox>
     </WrapItem>
   );

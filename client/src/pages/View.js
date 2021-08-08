@@ -43,6 +43,7 @@ export default function View(props) {
           throw new Error("Something went wrong");
         }
         const recipeData = await response.json();
+        console.log(recipeData);
 
         setRecipes(recipeData[0]);
       } catch (err) {

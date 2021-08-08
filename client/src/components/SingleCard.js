@@ -13,8 +13,10 @@ import {
 export default function SingleCard(props) {
   return (
     <>
-      <Center>{props.name}</Center>
-      <Center mb="1">{props.description}</Center>
+      <Center color="#009797" fontSize="xl">
+        {props.name}
+      </Center>
+      <Center mb="3">{props.description}</Center>
       <Center>Prep Time: {props.prepTime}</Center>
       <Center mb="8">Cook Time: {props.cookTime}</Center>
 
