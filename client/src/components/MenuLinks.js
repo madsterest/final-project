@@ -1,20 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { HStack, Link } from "@chakra-ui/react";
 import MenuItem from "./MenuItem.js";
 import Auth from "../utils/auth";
 
 export default function MenuLink() {
-  const token = Auth.loggedIn() ? Auth.getToken() : null;
-  if (!token) {
-    return false;
-  }
+  const [hasToken, setHasToken] = useState(true);
+
+  useEffect(() => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      setHasToken(false);
+    }
+  }, []);
 
   return (
     <HStack>
       <MenuItem href="/">Home</MenuItem>
       <MenuItem href="/dashboard">Your Recipes</MenuItem>
       <MenuItem href="/favs">Favourites</MenuItem>
-      {token ? (
+      {hasToken ? (
         <Link
           py="2"
           px="5"
