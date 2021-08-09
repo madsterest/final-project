@@ -3,7 +3,6 @@ const path = require("path");
 const db = require("./config/connection");
 const fileupload = require("express-fileupload");
 
-// const { authMiddleware } = require("./utils/auth");
 const routes = require("./routes");
 
 const app = express();
