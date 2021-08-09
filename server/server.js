@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 const path = require("path");
 const db = require("./config/connection");
 const fileupload = require("express-fileupload");
