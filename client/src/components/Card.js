@@ -70,12 +70,10 @@ export default function Card(props) {
             <Button
               borderRadius="15"
               bg="#ffffff"
-              onClick={props.favourite}
               id={props._id}
               fontWeight="normal"
               _hover={{ bg: "#f0f8fe" }}
               onClick={props.onEdit}
-              id={props._id}
               p="5"
             >
               Edit
@@ -85,8 +83,6 @@ export default function Card(props) {
             <Button
               borderRadius="15"
               bg="#ffffff"
-              onClick={props.favourite}
-              id={props._id}
               fontWeight="normal"
               _hover={{ bg: "#f0f8fe" }}
               onClick={props.onIndexEdit}
@@ -100,13 +96,11 @@ export default function Card(props) {
             <Button
               borderRadius="15"
               bg="#ffffff"
-              onClick={props.favourite}
               id={props._id}
               m="1"
               fontWeight="normal"
               _hover={{ bg: "#f0f8fe" }}
               onClick={props.onDelete}
-              id={props._id}
             >
               Delete
             </Button>

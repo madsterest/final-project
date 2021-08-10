@@ -39,7 +39,7 @@ export default function Home() {
     }
 
     const userId = Auth.getUserId(token);
-    console.log(recipeId, userId);
+    console.log(recipeId, userId, token);
 
     const getRecipeData = async () => {
       try {
@@ -75,7 +75,7 @@ export default function Home() {
               description={recipe.description}
               rating={recipe.rating}
               _id={recipe._id}
-              user={recipe.user.name}
+              // user={recipe.user.name}
               favourite={addFavourite}
             />
           );

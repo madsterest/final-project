@@ -17,6 +17,7 @@ module.exports = {
   async getRecipes(req, res) {
     try {
       const allRecipes = await Recipe.find({}).populate({ path: "user" });
+      console.log(allRecipes);
 
       res.status(200).json(allRecipes);
     } catch (err) {
@@ -74,8 +75,10 @@ module.exports = {
       const userId = newRecipe.user;
       const addToUser = await User.findOneAndUpdate(
         { _id: userId },
-        { $push: { recipes: recipeId } }
+        { $push: { recipes: recipeId } },
+        { new: true }
       );
+
       res.status(200).json(newRecipe);
     } catch (err) {
       console.log(err);

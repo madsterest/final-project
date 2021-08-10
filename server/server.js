@@ -1,5 +1,4 @@
 const express = require("express");
-require("dotenv").config();
 const path = require("path");
 const db = require("./config/connection");
 const fileupload = require("express-fileupload");
@@ -14,12 +13,12 @@ app.use(express.json());
 app.use(fileupload());
 app.use(express.static(path.join(__dirname, "uploads")));
 
-app.use(routes);
-
 // if we're in production, serve client/build as static assets
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
 }
+
+app.use(routes);
 
 db.once("open", () => {
   app.listen(PORT, () => {
