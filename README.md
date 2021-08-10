@@ -17,15 +17,11 @@ The site allows you to create your own recipies that are then saved to your dahs
 
 # Useage
 
-The site is deployed at
+The site is deployed at https://proof-in-the-pudding.herokuapp.com/
 
 ![Recipe View](./readme-images/recipe-view.png)
 
-
-
 ![Favourites Page](./readme-images/favourites-page.png)
-
-
 
 ![Create Recipe Form](./readme-images/create-recipe-form.png)
 
